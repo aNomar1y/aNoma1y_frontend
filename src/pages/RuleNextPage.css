@@ -15,18 +15,18 @@
 
 /* 제목 스타일 */
 .rule-container h1 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
+  font-size: 3rem;
+  margin-bottom: 60px;
 }
 
 /* 리스트 스타일 */
 .rule-container ol {
   list-style: decimal;
   text-align: left;
-  line-height: 1.6;
-  font-size: 1.2rem;
+  line-height: 2.5;
+  font-size: 2rem;
   margin: 0;
-  padding-left: 20px; /* 숫자 리스트의 들여쓰기 */
+  padding-left: 40px; /* 숫자 리스트의 들여쓰기 */
 }
 
 /* 네비게이션 버튼 컨테이너 */
