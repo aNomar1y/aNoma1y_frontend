@@ -10,26 +10,23 @@ import GameMainPage from "../pages/GameMainPage";
 import SettingsPage from "../pages/SettingsPage";
 import RulePage from "../pages/RulePage";
 import RuleNextPage from "../pages/RuleNextPage";
-import MainPage from "../pages/MainPage"
+import MainPage from "../pages/MainPage";
 
 function RoutesIndex() {
   return (
     <div>
       {/* 네비게이션 바 */}
       <nav>
-        <Link to="/">Home</Link> | 
-        <Link to="/game">game</Link> | 
-        <Link to="/login">login</Link> | 
-        <Link to="/oauth">oauth</Link> | 
-        <Link to="/settings">settings</Link> |
-        <Link to="/rule">rule</Link> |
+        <Link to="/">Home</Link> |<Link to="/game">game</Link> |
+        <Link to="/login">login</Link> |<Link to="/oauth">oauth</Link> |
+        <Link to="/settings">settings</Link> |<Link to="/rule">rule</Link> |
         <Link to="/rulenext">rulenext</Link>
       </nav>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/game" element={<GameMainPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/oauth" element={<OAuthCallback />} />
+        <Route path="/auth/kakao/callback" element={<OAuthCallback />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/rule" element={<RulePage />} />
         <Route path="/rulenext" element={<RuleNextPage />} />
