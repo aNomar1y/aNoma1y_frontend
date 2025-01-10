@@ -1,7 +1,7 @@
 import React from "react";
 import "./LoginPage.css"; // CSS 파일 import
 
-import kakaoLoginButton from "/Users/sanghyuk/Documents/GitHub/aNoma1y_frontend/src/pages/assets/MainPage/kakao_login_medium_wide.png"; // PNG 파일 import
+import kakaoLoginButton from "./assets/MainPage/kakao_login_medium_wide.png"; // 상대 경로 수정
 
 function LoginPage() {
   // 백엔드 API 주소

@@ -9,7 +9,7 @@
       rgba(49, 1, 1, 0.8),
       /* 어두운 붉은 색 */ rgba(49, 1, 1, 0.8)
     ),
-    url("/Users/sanghyuk/Documents/GitHub/aNoma1y_frontend/src/pages/assets/MainPage/N1_building.png")
+    url("./assets/MainPage/N1_building.png")
       no-repeat center center;
   background-size: cover;
 }
