@@ -4,6 +4,7 @@ import LoginPage from "../pages/LoginPage";
 import OAuthCallback from "../pages/OAuthCallback";
 import MainPage from "../pages/MainPage";
 import SettingsPage from "../pages/SettingsPage";
+import RulePage from "../pages/RulePage";
 
 function RoutesIndex() {
   return (
@@ -12,6 +13,7 @@ function RoutesIndex() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/oauth" element={<OAuthCallback />} />
       <Route path="/settings" element={<SettingsPage />} />
+      <Route path="/rule" element={<RulePage />} />
       {/* 필요한 라우트 추가 */}
     </Routes>
   );
