@@ -2,7 +2,7 @@ import React from "react";
 
 function LoginPage() {
   // 백엔드 API 주소
-  const KAKAO_LOGIN_URL = "http://172.10.65:3000/auth/kakao";
+  const KAKAO_LOGIN_URL = "http://172.10.7.65:3000/auth/kakao";
 
   const handleKakaoLogin = () => {
     window.location.href = KAKAO_LOGIN_URL;

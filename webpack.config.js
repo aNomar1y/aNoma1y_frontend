@@ -21,7 +21,11 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
-      }
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i, // 이미지 파일 처리
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [

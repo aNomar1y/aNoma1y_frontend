@@ -1,12 +1,14 @@
-import React from "react";
+import React from 'react';
+import './MainPage.css'; // CSS 파일 가져오기
+import logo from './assets/MainPage/aNoma1y.png';
+import mission from './assets/MainPage/mission.png';
 
-function MainPage() {
-  return (
-    <div>
-      <h1>메인 페이지</h1>
-      <p>이곳에서 CCTV 화면이나 게임 관련 화면을 구성할 예정입니다.</p>
-    </div>
-  );
-}
+
+const MainPage = () => (
+  <div className="container">
+    <img src={logo} alt="로고" />
+    <img src={mission} alt="mission" />
+  </div>
+);
 
 export default MainPage;

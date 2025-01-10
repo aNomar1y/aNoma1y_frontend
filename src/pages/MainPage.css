@@ -1,0 +1,22 @@
+.container {
+    background-color: #460000; /* Figma 배경 색상 */
+    font-family: 'Arial', sans-serif;
+    color: white;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .label {
+    height: 144px;
+    width: 537px;
+  }
+  
+  .label .image {
+    height: 59px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 246px;
+  }
