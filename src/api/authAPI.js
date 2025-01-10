@@ -1,7 +1,7 @@
 // authAPI.js
 export async function logout() {
   try {
-    const response = await fetch("http://172.10.65:3000/auth/kakao/logout", {
+    const response = await fetch("http://172.10.7.65/:3000/auth/kakao/logout", {
       method: "POST",
       credentials: "include", // 쿠키 사용 시 필요
       headers: {
@@ -18,14 +18,17 @@ export async function logout() {
 
 export async function withdraw() {
   try {
-    const response = await fetch("http://172.10.65:3000/auth/kakao/withdraw", {
-      method: "DELETE",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        // Authorization: `Bearer ${getToken()}`,
-      },
-    });
+    const response = await fetch(
+      "http://172.10.7.65/:3000/auth/kakao/withdraw",
+      {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: `Bearer ${getToken()}`,
+        },
+      }
+    );
     return response.ok;
   } catch (error) {
     console.error(error);
