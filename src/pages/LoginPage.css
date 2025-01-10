@@ -1,0 +1,34 @@
+/* 전체 컨테이너 */
+.login-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(
+      rgba(49, 1, 1, 0.8),
+      /* 어두운 붉은 색 */ rgba(49, 1, 1, 0.8)
+    ),
+    url("/Users/sanghyuk/Documents/GitHub/aNoma1y_frontend/src/pages/assets/MainPage/N1_building.png")
+      no-repeat center center;
+  background-size: cover;
+}
+
+/* 로고 텍스트 */
+.login-page h1 {
+  color: #ffffff;
+  font-size: 10rem;
+  font-weight: bold;
+  margin-bottom: 10rem;
+}
+
+.login-page h1 span {
+  color: red;
+}
+
+/* 카카오 로그인 버튼 */
+.kakao-login-button {
+  cursor: pointer;
+  width: 400px;
+  margin-top: 1rem;
+}
