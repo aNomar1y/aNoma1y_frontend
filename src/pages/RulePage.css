@@ -1,14 +1,31 @@
-/* 전체 배경 및 중앙 정렬 */
 .rule-container {
-    background-color: #9B0003; /* 빨간 배경 */
-    color: white;             /* 흰색 글자 */
-    height: 100vh;            /* 화면 전체 높이 */
-    display: flex;            /* Flexbox 사용 */
-    flex-direction: column;   /* 세로 정렬 */
-    justify-content: center;  /* 수직 중앙 정렬 */
-    align-items: center;      /* 수평 중앙 정렬 */
-    font-size: 1.5rem;        /* 글자 크기 */
-    text-align: center;       /* 텍스트 중앙 정렬 */
-    line-height: 2;           /* 줄 간격 */
-  }
-  
+  background-color: #9B0003; /* 빨간 배경 */
+  color: white; /* 흰색 글자 */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* 화살표 버튼 위치를 고정하기 위한 설정 */
+}
+
+.rule-content {
+  text-align: center;
+  line-height: 2;
+  font-size: 1.2rem;
+}
+
+.next-button {
+  position: absolute; /* 부모 컨테이너 기준 위치 고정 */
+  bottom: 20px; /* 하단에서 20px 띄움 */
+  right: 20px; /* 우측에서 20px 띄움 */
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.next-button:hover {
+  color: #FFD700; /* 호버 시 화살표 색 변경 */
+}
