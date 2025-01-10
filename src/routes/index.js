@@ -1,5 +1,9 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+// import { Routes, Route } from "react-router-dom";
+
+// 개발용
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
 import LoginPage from "../pages/LoginPage";
 import OAuthCallback from "../pages/OAuthCallback";
 import GameMainPage from "../pages/GameMainPage";
@@ -10,16 +14,28 @@ import MainPage from "../pages/MainPage"
 
 function RoutesIndex() {
   return (
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/" element={<GameMainPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/oauth" element={<OAuthCallback />} />
-      <Route path="/settings" element={<SettingsPage />} />
-      <Route path="/rule" element={<RulePage />} />
-      <Route path="/rulenext" element={<RuleNextPage />} />
-      {/* 필요한 라우트 추가 */}
-    </Routes>
+    <div>
+      {/* 네비게이션 바 */}
+      <nav>
+        <Link to="/">Home</Link> | 
+        <Link to="/game">game</Link> | 
+        <Link to="/login">login</Link> | 
+        <Link to="/oauth">oauth</Link> | 
+        <Link to="/settings">settings</Link> |
+        <Link to="/rule">rule</Link> |
+        <Link to="/rulenext">rulenext</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/game" element={<GameMainPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/oauth" element={<OAuthCallback />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/rule" element={<RulePage />} />
+        <Route path="/rulenext" element={<RuleNextPage />} />
+        {/* 필요한 라우트 추가 */}
+      </Routes>
+    </div>
   );
 }
 

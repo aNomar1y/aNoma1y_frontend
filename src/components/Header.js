@@ -16,7 +16,7 @@ function Header() {
   };
 
   return (
-    <header style={{ backgroundColor: "#ccc", padding: "10px" }}>
+    <header style={{ backgroundColor: "#460000", padding: "10px" }}>
       <h2>aNoma1y</h2>
       <button onClick={handleLogout}>로그아웃</button>
     </header>
