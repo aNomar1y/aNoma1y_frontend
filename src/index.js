@@ -1,9 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App'; // App.js 가져오기
-import './index.css'; // 전역 스타일 (선택 사항)
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import './index.css'; // 스타일 파일 추가
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const container = document.getElementById("root");
+const root = createRoot(container);
+
 root.render(
   <React.StrictMode>
     <App />
