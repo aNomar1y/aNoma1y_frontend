@@ -1,30 +1,55 @@
 /* 전체 화면 설정 */
 .rule-container {
-    background-color: #9B0003; /* 빨간 배경 */
-    color: white; /* 흰색 글자 */
-    height: 100vh; /* 화면 전체 높이 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 수직 가운데 정렬 */
-    align-items: center; /* 수평 가운데 정렬 */
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  /* 제목 스타일 */
-  .rule-container h1 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-  }
-  
-  /* 리스트 스타일 */
-  .rule-container ol {
-    list-style: decimal;
-    text-align: left;
-    line-height: 1.6;
-    font-size: 1.2rem;
-    margin: 0;
-    padding-left: 20px; /* 숫자 리스트의 들여쓰기 */
-  }
-  
+  background-color: #9B0003; /* 빨간 배경 */
+  color: white; /* 흰색 글자 */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 수직 가운데 정렬 */
+  align-items: center; /* 수평 가운데 정렬 */
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 제목 스타일 */
+.rule-container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+/* 리스트 스타일 */
+.rule-container ol {
+  list-style: decimal;
+  text-align: left;
+  line-height: 1.6;
+  font-size: 1.2rem;
+  margin: 0;
+  padding-left: 20px; /* 숫자 리스트의 들여쓰기 */
+}
+
+/* 네비게이션 버튼 컨테이너 */
+.navigation-buttons {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* 왼쪽, 오른쪽 버튼 정렬 */
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* 화살표 버튼 스타일 */
+.back-button, .next-button {
+  background: none;
+  border: none;
+  font-size: 3rem; /* 화살표 크기 */
+  font-weight: bold; /* 화살표 두껍게 */
+  color: white;
+  cursor: pointer;
+}
+
+.back-button:hover, .next-button:hover {
+  color: #FFD700; /* 호버 시 화살표 색상 변경 */
+}

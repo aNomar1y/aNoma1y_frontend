@@ -12,20 +12,20 @@
 .rule-content {
   text-align: center;
   line-height: 2;
-  font-size: 1.2rem;
+  font-size: 2.5rem;
 }
 
-.next-button {
+.rule-next-button {
   position: absolute; /* 부모 컨테이너 기준 위치 고정 */
   bottom: 20px; /* 하단에서 20px 띄움 */
   right: 20px; /* 우측에서 20px 띄움 */
   background: none;
   border: none;
   color: white;
-  font-size: 2rem;
+  font-size: 3rem;
   cursor: pointer;
 }
 
-.next-button:hover {
+.rule-next-button:hover {
   color: #FFD700; /* 호버 시 화살표 색 변경 */
 }

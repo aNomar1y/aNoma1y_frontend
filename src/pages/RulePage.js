@@ -16,8 +16,8 @@ function RulePage() {
         <p>귀하의 최종합격을 축하드립니다.</p>
         <p>아래 안내된 사항 확인 후 근무하기 바랍니다.</p>
       </div>
-      <button className="next-button" onClick={handleNext}>
-        ➔
+      <button className="rule-next-button" onClick={handleNext}>
+        &rarr;
       </button>
     </div>
   );
