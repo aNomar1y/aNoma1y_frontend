@@ -10,6 +10,7 @@ import GameMainPage from "../pages/GameMainPage";
 import SettingsPage from "../pages/SettingsPage";
 import RulePage from "../pages/RulePage";
 import RuleNextPage from "../pages/RuleNextPage";
+import TypingEffectPage from "../pages/TypingEffect";
 import MainPage from "../pages/MainPage";
 
 function RoutesIndex() {
@@ -20,7 +21,7 @@ function RoutesIndex() {
         <Link to="/">Home</Link> |<Link to="/game">game</Link> |
         <Link to="/login">login</Link> |<Link to="/oauth">oauth</Link> |
         <Link to="/settings">settings</Link> |<Link to="/rule">rule</Link> |
-        <Link to="/rulenext">rulenext</Link>
+        <Link to="/rulenext">rulenext</Link> |<Link to="/test">test</Link>
       </nav>
       <Routes>
         <Route path="/" element={<MainPage />} />
@@ -30,6 +31,7 @@ function RoutesIndex() {
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/rule" element={<RulePage />} />
         <Route path="/rulenext" element={<RuleNextPage />} />
+        <Route path="/test" element={<TypingEffectPage />} />
         {/* 필요한 라우트 추가 */}
       </Routes>
     </div>
