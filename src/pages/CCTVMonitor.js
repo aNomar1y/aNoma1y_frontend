@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./CCTVMonitor.css";
 
 const CCTVMonitor = () => {
@@ -35,53 +35,144 @@ const CCTVMonitor = () => {
     },
     {
       id: 6,
-      anomalies: ["6-1"],
+      anomalies: ["6-1", "6-2", "6-3"],
       currentAnomaly: null,
       isAdjusting: false,
     },
   ]);
 
   const [currentScreen, setCurrentScreen] = useState(0);
+  const currentScreenRef = useRef(currentScreen); // 최신 currentScreen 값을 저장
+  const [showWarning, setShowWarning] = useState(false); // 상단 경고문 표시 상태
+  const [anomalyActive, setAnomalyActive] = useState(false); // 이상현상 활성화 상태
+  const anomalyCount = cctvData.filter(
+    (screen) => screen.currentAnomaly !== null
+  ).length;
 
-  // 랜덤 이상현상 발생 (5초마다)
+  // 랜덤 이상현상 발생 (10초마다)
+  /*
   useEffect(() => {
     const interval = setInterval(() => {
       setCctvData((prevData) => {
         const availableScreens = prevData.filter(
-          (_, index) => index !== currentScreen
+          (screen, index) =>
+            index !== currentScreen && screen.currentAnomaly === null
         ); // 현재 화면 제외
+        console.log(
+          "Available Screens:",
+          availableScreens.map((s) => s.id)
+        );
         const randomScreen =
           availableScreens[Math.floor(Math.random() * availableScreens.length)];
         const availableAnomalies = randomScreen.anomalies.filter(
           (anomaly) => anomaly !== randomScreen.currentAnomaly
         );
+        console.log("Available Anomalies for Screen:", availableAnomalies);
         const newAnomaly =
           availableAnomalies[
             Math.floor(Math.random() * availableAnomalies.length)
           ] || null;
-
+        console.log("Generated Anomaly:", newAnomaly);
         return prevData.map((screen) =>
           screen.id === randomScreen.id
             ? { ...screen, currentAnomaly: newAnomaly }
             : screen
         );
       });
-    }, 8000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);
-
+  */
   // 화면 전환: 다음 화면
   const handleNextScreen = () => {
-    setCurrentScreen((prevScreen) => (prevScreen + 1) % cctvData.length); // 순환
+    setCurrentScreen((prevScreen) => {
+      const newScreen = (prevScreen + 1) % cctvData.length;
+      currentScreenRef.current = newScreen; // 최신 값 업데이트
+      return newScreen;
+    });
+  };
+  const handlePreviousScreen = () => {
+    setCurrentScreen((prevScreen) => {
+      const newScreen = prevScreen === 0 ? cctvData.length - 1 : prevScreen - 1;
+      currentScreenRef.current = newScreen; // 최신 값 업데이트
+      return newScreen;
+    });
   };
 
+  // 이상현상 발생 로직
+  useEffect(() => {
+    let interval;
+    const startAnomalies = () => {
+      interval = setInterval(() => {
+        setCctvData((prevData) => {
+          const availableScreens = prevData.filter(
+            (screen, index) =>
+              index !== currentScreenRef.current &&
+              screen.currentAnomaly === null
+          );
+
+          if (availableScreens.length === 0) {
+            console.warn("No available screens for anomaly generation.");
+            return prevData;
+          }
+
+          const randomScreen =
+            availableScreens[
+              Math.floor(Math.random() * availableScreens.length)
+            ];
+
+          const availableAnomalies = randomScreen.anomalies.filter(
+            (anomaly) => anomaly !== randomScreen.currentAnomaly
+          );
+
+          if (availableAnomalies.length === 0) {
+            console.warn(
+              `No anomalies available for screen ${randomScreen.id}`
+            );
+            return prevData;
+          }
+
+          const newAnomaly =
+            availableAnomalies[
+              Math.floor(Math.random() * availableAnomalies.length)
+            ];
+
+          console.log(
+            `New anomaly generated for CAM ${randomScreen.id}: ${newAnomaly}`
+          );
+
+          return prevData.map((screen) =>
+            screen.id === randomScreen.id
+              ? { ...screen, currentAnomaly: newAnomaly }
+              : screen
+          );
+        });
+      }, 10000); // 10초 간격으로 이상현상 발생
+    };
+
+    // 25초 후 경고문 표시
+    const warningTimeout = setTimeout(() => {
+      setShowWarning(true);
+      setTimeout(() => {
+        setShowWarning(false);
+      }, 5000);
+    }, 25000);
+
+    // 30초 후 이상현상 활성화
+    const anomalyTimeout = setTimeout(() => {
+      setAnomalyActive(true);
+      startAnomalies();
+    }, 30000);
+
+    return () => {
+      clearTimeout(warningTimeout);
+      clearTimeout(anomalyTimeout);
+      clearInterval(interval);
+    };
+  }, []);
+
   // 화면 전환: 이전 화면
-  const handlePreviousScreen = () => {
-    setCurrentScreen((prevScreen) =>
-      prevScreen === 0 ? cctvData.length - 1 : prevScreen - 1
-    );
-  };
 
   // 이상현상 보고 기능
   const reportAnomaly = () => {
@@ -109,15 +200,21 @@ const CCTVMonitor = () => {
             : screen
         )
       );
-    }, 1500);
+    }, 1000);
   };
 
   return (
     <div className="monitor-container">
+      {showWarning && (
+        <div className="warning-banner">
+          경고: 이상현상이 감지될 수 있습니다. 발견 즉시 보고하십시오.
+        </div>
+      )}
       <div className="cctv-screen">
         <div className="screen-header">
           <span>CAM {cctvData[currentScreen].id}: 114호 실습실</span>
           <span>{new Date().toLocaleString()}</span>
+          <span>발생 중인 이상현상: {anomalyCount}개</span>
         </div>
         {cctvData[currentScreen].isAdjusting ? (
           <div className="adjusting-screen">화면 조정 중...</div>
