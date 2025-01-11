@@ -1,6 +1,6 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './RuleNextPage.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./RuleNextPage.css";
 
 function RuleNextPage() {
   const navigate = useNavigate();
@@ -17,10 +17,10 @@ function RuleNextPage() {
         <li>이곳에서 경험한 일은 외부에 유출될 수 없습니다.</li>
       </ol>
       <div className="navigation-buttons">
-        <button className="back-button" onClick={() => navigate('/rule')}>
+        <button className="back-button" onClick={() => navigate("/rule")}>
           &larr;
         </button>
-        <button className="next-button" onClick={() => navigate('/')}>
+        <button className="next-button" onClick={() => navigate("/game")}>
           &rarr;
         </button>
       </div>
