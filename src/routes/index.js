@@ -14,7 +14,7 @@ import MainPage from "../pages/MainPage";
 import RecordPage from "../pages/RecordPage";
 import RecordDetailPage from "../pages/RecordDetailPage";
 import DeadTextPage from "../pages/DeadTextPage";
-
+import CCTVMonitor from "../pages/CCTVMonitor";
 function RoutesIndex() {
   return (
     <div>
@@ -40,6 +40,8 @@ function RoutesIndex() {
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/rule" element={<RulePage />} />
         <Route path="/rulenext" element={<RuleNextPage />} />
+        <Route path="/test" element={<TypingEffectPage />} />
+        <Route path="/cctv" element={<CCTVMonitor />} />
         <Route path="/deadtext" element={<DeadTextPage />} />
         {/* 필요한 라우트 추가 */}
       </Routes>

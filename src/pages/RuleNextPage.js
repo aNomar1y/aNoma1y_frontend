@@ -20,7 +20,7 @@ function RuleNextPage() {
         <button className="back-button" onClick={() => navigate("/rule")}>
           &larr;
         </button>
-        <button className="next-button" onClick={() => navigate("/game")}>
+        <button className="next-button" onClick={() => navigate("/cctv")}>
           &rarr;
         </button>
       </div>
