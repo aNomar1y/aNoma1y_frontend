@@ -29,7 +29,7 @@ const RecordPage = () => {
   return (
     <div className="record-container">
       <div className="header">
-        <span className="back-button" onClick={() => navigate("/")}>
+        <span className="back-button" onClick={() => navigate(-1)}>
           &larr;
         </span>
         <span className="header-title">현상 기록</span>
