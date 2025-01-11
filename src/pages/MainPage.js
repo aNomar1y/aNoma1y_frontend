@@ -7,6 +7,23 @@ import logout from "./assets/MainPage/logout.png";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
+
+const fetchKakaoId = async (accessToken) => {
+  try {
+    const response = await axios.get("https://kapi.kakao.com/v2/user/me", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    const kakaoId = response.data.id; // 카카오 사용자 ID
+    console.log("Kakao ID:", kakaoId);
+    return kakaoId;
+  } catch (error) {
+    console.error("Failed to fetch Kakao ID:", error);
+    return null;
+  }
+};
+
 const MainPage = () => {
 
   const [userInfo, setUserInfo] = useState(null);
@@ -31,8 +48,12 @@ const MainPage = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('/auth/kakao/logout', { kakao_id: kakaoId }); // 로그아웃 API 호출
+      const accessToken = localStorage.getItem("access_token");
+      const kakaoId = await fetchKakaoId(accessToken);
+      console.log('kakao_id: ', kakaoId)
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/kakao/logout`, { kakao_id: kakaoId }); // 로그아웃 API 호출
       alert('로그아웃 성공');
+      localStorage.removeItem("access_token"); // 토큰 제거
       navigate('/'); // 로그아웃 후 홈으로 이동
     } catch (error) {
       console.error('로그아웃 실패:', error);
