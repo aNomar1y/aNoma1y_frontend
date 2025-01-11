@@ -1,0 +1,19 @@
+.record-detail-container {
+  padding: 20px;
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.record-image {
+  width: 100%;
+  height: auto;
+}
+
+.no-data {
+  text-align: center;
+  color: #999;
+}

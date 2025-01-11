@@ -12,19 +12,24 @@ import RulePage from "../pages/RulePage";
 import RuleNextPage from "../pages/RuleNextPage";
 import TypingEffectPage from "../pages/TypingEffect";
 import MainPage from "../pages/MainPage";
+import RecordPage from "../pages/RecordPage";
+import RecordDetailPage from "../pages/RecordDetailPage";
 
 function RoutesIndex() {
   return (
     <div>
       {/* 네비게이션 바 */}
       <nav>
-        <Link to="/">Home</Link> |<Link to="/game">game</Link> |
-        <Link to="/login">login</Link> |<Link to="/oauth">oauth</Link> |
-        <Link to="/settings">settings</Link> |<Link to="/rule">rule</Link> |
-        <Link to="/rulenext">rulenext</Link> |<Link to="/test">test</Link>
+        <Link to="/">Home</Link> |<Link to="/record">record</Link> |
+        <Link to="/game">game</Link> |<Link to="/login">login</Link> |
+        <Link to="/oauth">oauth</Link> |<Link to="/settings">settings</Link> |
+        <Link to="/rule">rule</Link> |<Link to="/rulenext">rulenext</Link> |
+        <Link to="/test">test</Link>
       </nav>
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/record" element={<RecordPage />} />
+        <Route path="/:id" element={<RecordDetailPage />} />
         <Route path="/game" element={<GameMainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/auth/kakao/callback" element={<OAuthCallback />} />
