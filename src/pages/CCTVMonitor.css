@@ -1,10 +1,19 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* 스크롤 방지 */
+}
+/*
 .monitor-container {
   text-align: center;
   margin: 20px;
   position: relative;
   width: 600px;
   margin: 0 auto;
-}
+}*/
 
 .screen-header {
   display: flex;
@@ -14,19 +23,25 @@
   margin-bottom: 10px;
 }
 
+/* 이미지 컨테이너 */
 .cctv-screen {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  background-color: black;
-  overflow: hidden;
-  border: 2px solid gray;
-  border-radius: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; /* 뷰포트 너비 */
+  height: 100vh; /* 뷰포트 높이 */
+  background-color: black; /* 이미지가 없는 경우 배경 처리 */
+  overflow: hidden; /* 이미지를 넘어서는 부분 숨기기 */
+  z-index: 1; /* 다른 요소 뒤로 가지 않도록 설정 */
 }
 
+/* 이미지 스타일 */
 .cctv-image {
   width: 100%;
   height: 100%;
+  object-fit: contain; /* 이미지를 비율 유지하며 전체를 보여줌 */
+  object-position: center; /* 이미지를 화면 중앙에 맞춤 */
+  background-color: black; /* 여백 처리 */
 }
 
 .adjusting-screen {
@@ -45,7 +60,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
   color: white;
   border: none;
   font-size: 24px;
@@ -55,23 +70,26 @@
 }
 
 .left-arrow {
-  left: 10px;
+  left: 20px;
 }
 
 .right-arrow {
-  right: 10px;
+  right: 20px;
 }
 
 .report-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: red;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  position: absolute;
+  bottom: 20px; /* 화면 하단에서 20px 떨어짐 */
+  right: 20px; /* 화면 오른쪽에서 20px 떨어짐 */
+  font-size: 18px; /* 글씨 크기 */
+  color: green; /* 글씨 색상 초록 */
+  background-color: transparent; /* 배경색 없음 */
+  border: none; /* 테두리 없음 */
+  cursor: pointer; /* 클릭 가능한 커서 */
+  text-decoration: none; /* 밑줄 제거 */
+  z-index: 10; /* 다른 요소 위에 표시 */
 }
 
 .report-button:hover {
-  background-color: darkred;
+  color: darkgreen; /* 호버 시 진한 초록색으로 변경 */
 }

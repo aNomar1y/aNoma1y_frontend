@@ -49,7 +49,7 @@ const CCTVMonitor = () => {
       setCctvData((prevData) => {
         const availableScreens = prevData.filter(
           (_, index) => index !== currentScreen
-        );
+        ); // 현재 화면 제외
         const randomScreen =
           availableScreens[Math.floor(Math.random() * availableScreens.length)];
         const availableAnomalies = randomScreen.anomalies.filter(
@@ -66,10 +66,10 @@ const CCTVMonitor = () => {
             : screen
         );
       });
-    }, 5000);
+    }, 8000);
 
     return () => clearInterval(interval);
-  }, [currentScreen]);
+  }, []);
 
   // 화면 전환: 다음 화면
   const handleNextScreen = () => {
@@ -114,11 +114,11 @@ const CCTVMonitor = () => {
 
   return (
     <div className="monitor-container">
-      <div className="screen-header">
-        <span>CAM {cctvData[currentScreen].id}: 114호 실습실</span>
-        <span>{new Date().toLocaleString()}</span>
-      </div>
       <div className="cctv-screen">
+        <div className="screen-header">
+          <span>CAM {cctvData[currentScreen].id}: 114호 실습실</span>
+          <span>{new Date().toLocaleString()}</span>
+        </div>
         {cctvData[currentScreen].isAdjusting ? (
           <div className="adjusting-screen">화면 조정 중...</div>
         ) : (
@@ -129,7 +129,7 @@ const CCTVMonitor = () => {
                 : `/assets/cctv${cctvData[currentScreen].id}.jpg`
             }
             alt={`CCTV ${cctvData[currentScreen].id}`}
-            onError={(e) => (e.target.src = "default.jpg")} // 이미지 로드 실패 시 기본 이미지
+            className="cctv-image"
           />
         )}
         <button className="arrow left-arrow" onClick={handlePreviousScreen}>
