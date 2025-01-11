@@ -42,3 +42,17 @@
 .logout-image:hover {
   opacity: 0.9; /* 호버 시 투명도 제거 */
 }
+
+/* 회원탈퇴 이미지 */
+.delete-image {
+  position: absolute; /* 절대 위치 설정 */
+  bottom: 30px; /* 하단에서 10px 간격 */
+  right: 10px; /* 오른쪽에서 10px 간격 */
+  width: 50px; /* 회원탈퇴 이미지 크기 */
+  cursor: pointer; /* 클릭 가능한 커서 */
+  opacity: 0.5; /* 약간의 투명도 */
+  transition: opacity 0.3s ease; /* 호버 시 부드러운 효과 */
+}
+.delete-image:hover {
+  opacity: 0.9; /* 호버 시 투명도 제거 */
+}
