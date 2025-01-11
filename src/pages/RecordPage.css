@@ -1,0 +1,37 @@
+/* 전체 컨테이너 스타일 */
+.record-container {
+    background-color: #460000; /* 배경색 */
+    color: white; /* 텍스트 색 */
+    font-family: "Inter", sans-serif; /* 폰트 */
+    height: 100vh; /* 화면 전체 높이 */
+    padding: 20px; /* 내부 여백 */
+    box-sizing: border-box; /* 테두리를 포함한 박스 크기 */
+  }
+  
+  /* 왼쪽 상단 화살표 버튼 스타일 */
+  .back-button {
+    font-size: 2.5rem; /* 화살표 크기 */
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  /* 리스트 스타일 */
+  .record-list {
+    list-style: none; /* 기본 리스트 스타일 제거 */
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* 리스트 아이템 스타일 */
+  .record-item {
+    border-top: 1px solid white; /* 상단 경계선 */
+    padding: 25px 0; /* 아이템 간격 */
+    font-size: 2rem; /* 글자 크기 */
+    cursor: pointer; /* 클릭 가능하도록 포인터 커서 추가 */
+    opacity: 0.5;
+    transition: opacity 0.4s ease; /* 호버 효과 */
+  }
+  
+  .record-item:hover {
+    opacity: 0.9; /* 호버 시 투명도 제거 */
+  }
