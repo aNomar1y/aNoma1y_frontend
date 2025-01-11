@@ -48,7 +48,7 @@ body {
 }
 
 .cctv-image.static-effect {
-  animation: glitch 0.8s infinite; /* 부드러운 지지직 효과 */
+  animation: glitch-animation 0.2s infinite; /* 빠르게 반복되는 지지직 애니메이션 */
 }
 
 /* 전체 화면 필터 효과 */
@@ -59,10 +59,14 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("/public/assets/noise.png"); /* 고정 노이즈 이미지 */
-  opacity: 0.15; /* 투명도를 줄여 부드럽게 */
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(0, 0, 0, 0.02) 50%
+  );
+  background-size: 100% 4px; /* 스캔라인 간격 조정 */
   pointer-events: none;
   z-index: 5;
+  animation: scanline-animation 1s infinite linear;
 }
 
 .cctv-screen::after {
@@ -72,48 +76,58 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    rgba(0, 0, 0, 0.2) 0%,
-    rgba(0, 0, 0, 0) 50%,
-    rgba(0, 0, 0, 0.2) 100%
-  ); /* 스캔라인 효과 */
-  mix-blend-mode: multiply; /* 화면에 어둡게 섞음 */
+  background: url("/public/assets/noise.png"); /* 노이즈 이미지 경로 */
+  background-size: cover;
+  opacity: 0.1;
   pointer-events: none;
   z-index: 5;
+  animation: noise-animation 0.3s steps(5) infinite;
 }
-
-@keyframes glitch {
+@keyframes glitch-animation {
   0% {
     transform: translate(0, 0);
     filter: brightness(1) contrast(1);
   }
-  10% {
-    transform: translate(-1px, -0.5px);
-    filter: brightness(1.1) contrast(1.1);
-  }
   20% {
-    transform: translate(0.5px, 1px);
-    filter: brightness(0.95) contrast(1.05);
-  }
-  30% {
-    transform: translate(-0.2px, -0.2px);
-    filter: brightness(1.05) contrast(1);
+    transform: translate(-1px, -1px);
+    filter: brightness(1.2) contrast(1.1);
   }
   40% {
-    transform: translate(0.3px, 0.3px);
-    filter: brightness(0.98) contrast(1.02);
+    transform: translate(1px, 1px);
+    filter: brightness(0.9) contrast(0.95);
   }
-  50% {
-    transform: translate(0, 0);
-    filter: brightness(1) contrast(1);
-  }
-  70% {
-    transform: translate(-0.4px, 0.2px);
-    filter: brightness(1.02) contrast(0.98);
+  60% {
+    transform: translate(-0.5px, 0.5px);
+    filter: brightness(1.1) contrast(1.2);
   }
   100% {
     transform: translate(0, 0);
     filter: brightness(1) contrast(1);
+  }
+}
+@keyframes scanline-animation {
+  0% {
+    opacity: 0.05;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.1;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 0.05;
+    transform: translateY(0);
+  }
+}
+@keyframes noise-animation {
+  0% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.15;
+  }
+  100% {
+    opacity: 0.05;
   }
 }
 
