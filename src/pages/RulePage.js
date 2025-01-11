@@ -20,7 +20,7 @@ function RulePage() {
             '귀하의 최종합격을 축하드립니다.',
             '아래 안내된 사항 확인 후 근무하기 바랍니다.',
           ]}
-          minDelay={30} // 최소 딜레이 (ms)
+          minDelay={10} // 최소 딜레이 (ms)
           maxDelay={200} // 최대 딜레이 (ms)
         />
       </div>
