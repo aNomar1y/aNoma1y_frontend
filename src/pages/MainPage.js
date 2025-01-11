@@ -25,8 +25,8 @@ const MainPage = () => {
   return (
   <div className="container">
     <img src={logo} alt="로고" />
-    <img src={mission} alt="mission" className="button-image"/>
-    <img src={record} alt="record" className="button-image"/>
+    <img src={mission} alt="mission" className="button-image" onClick={() => navigate('/game')}/>
+    <img src={record} alt="record" className="button-image" onClick={() => navigate('/record')}/>
     <img src={logout} alt="logout" className="logout-image" onClick={handleLogout} />
   </div>
   );
