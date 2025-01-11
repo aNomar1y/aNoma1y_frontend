@@ -1,14 +1,26 @@
 import React from "react";
 import "./LoginPage.css"; // CSS 파일 import
+import kakaoLoginButton from "./assets/LoginPage/kakao_login_medium_wide.png";
+import { useNavigate } from "react-router";
 
-import kakaoLoginButton from "./assets/MainPage/kakao_login_medium_wide.png"; // 상대 경로 수정
+
+export const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`;
+
+console.log("KAKAO_AUTH_URI:", KAKAO_AUTH_URI);
+console.log("REACT_APP_API_KEY:", process.env.REACT_APP_API_KEY);
+console.log("REACT_APP_REDIRECT_URI:", process.env.REACT_APP_REDIRECT_URI);
 
 function LoginPage() {
-  // 백엔드 API 주소
-  const KAKAO_LOGIN_URL = "http://172.10.7.65:3000/auth/kakao";
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    window.location.href = KAKAO_LOGIN_URL; // 백엔드로 리다이렉트하여 카카오 인증
+  const handleKakaoLogin = () => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    if (token) {
+      navigate("/home");
+    } else {
+      window.location.href = KAKAO_AUTH_URI;
+    }
   };
 
   return (
@@ -22,7 +34,7 @@ function LoginPage() {
       <img
         src={kakaoLoginButton}
         alt="카카오로 로그인"
-        onClick={handleLogin}
+        onClick={handleKakaoLogin}
         className="kakao-login-button"
       />
     </div>

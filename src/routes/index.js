@@ -20,18 +20,22 @@ function RoutesIndex() {
     <div>
       {/* 네비게이션 바 */}
       <nav>
-        <Link to="/">Home</Link> |<Link to="/record">record</Link> |
-        <Link to="/game">game</Link> |<Link to="/login">login</Link> |
-        <Link to="/oauth">oauth</Link> |<Link to="/settings">settings</Link> |
-        <Link to="/rule">rule</Link> |<Link to="/rulenext">rulenext</Link> |
+        <Link to="/">login</Link> |
+        <Link to="/home">Home</Link> |
+        <Link to="/record">record</Link> |
+        <Link to="/game">game</Link> |
+        <Link to="/oauth">oauth</Link> |
+        <Link to="/settings">settings</Link> |
+        <Link to="/rule">rule</Link> |
+        <Link to="/rulenext">rulenext</Link> |
         <Link to="/test">test</Link>
       </nav>
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/home" element={<MainPage />} />
         <Route path="/record" element={<RecordPage />} />
         <Route path="/:id" element={<RecordDetailPage />} />
         <Route path="/game" element={<GameMainPage />} />
-        <Route path="/login" element={<LoginPage />} />
         <Route path="/auth/kakao/callback" element={<OAuthCallback />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/rule" element={<RulePage />} />
