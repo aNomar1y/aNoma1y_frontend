@@ -1,5 +1,5 @@
 import React from "react";
-import { withdraw } from "../api/authAPI";
+//import { withdraw } from "../api/authAPI";
 
 function SettingsPage() {
   const handleWithdraw = async () => {

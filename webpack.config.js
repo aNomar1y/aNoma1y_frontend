@@ -1,4 +1,7 @@
 const path = require("path");
+const webpack = require("webpack");
+const dotenv = require("dotenv").config();
+
 const HtmlWebpackPlugin = require("html-webpack-plugin"); // 플러그인 추가
 
 module.exports = {
@@ -29,6 +32,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(dotenv.parsed),
+    }),
     new HtmlWebpackPlugin({
       template: "./public/index.html", // HTML 템플릿 경로
     }),
@@ -36,8 +42,9 @@ module.exports = {
   devServer: {
     static: path.join(__dirname, "public"),
     compress: true,
-    port: 3000,
+    port: parseInt(process.env.PORT, 10) || 3001,
     open: true,
     hot: true,
   },
+  
 };
