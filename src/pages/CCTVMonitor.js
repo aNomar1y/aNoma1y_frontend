@@ -47,6 +47,7 @@ const CCTVMonitor = () => {
   const [showWarning, setShowWarning] = useState(false); // 상단 경고문 표시 상태
   const [anomalyActive, setAnomalyActive] = useState(false); // 이상현상 활성화 상태
   const [wrongReports, setWrongReports] = useState(0); // 잘못 보고한 횟수
+  const [isStatic, setIsStatic] = useState(false); // 지지직 효과 상태
   const navigate = useNavigate(); // React Router의 useNavigate
   const anomalyCount = cctvData.filter(
     (screen) => screen.currentAnomaly !== null
@@ -182,6 +183,15 @@ const CCTVMonitor = () => {
     }
   }, [wrongReports, anomalyCount, navigate]);
 
+  // 지지직 효과 주기적 발생
+  useEffect(() => {
+    const staticInterval = setInterval(() => {
+      setIsStatic(true); // 지지직 효과 활성화
+      setTimeout(() => setIsStatic(false), 500); // 0.5초 후 효과 제거
+    }, 5000); // 5초마다 효과 발생
+    return () => clearInterval(staticInterval);
+  }, []);
+
   // 이상현상 보고 기능
   const reportAnomaly = () => {
     const screen = cctvData[currentScreen];
@@ -236,7 +246,7 @@ const CCTVMonitor = () => {
                 : `/assets/cctv${cctvData[currentScreen].id}.jpg`
             }
             alt={`CCTV ${cctvData[currentScreen].id}`}
-            className="cctv-image"
+            className={`cctv-image ${isStatic ? "static-effect" : ""}`}
           />
         )}
         <button className="arrow left-arrow" onClick={handlePreviousScreen}>
