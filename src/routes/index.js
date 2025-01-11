@@ -14,20 +14,16 @@ import TypingEffectPage from "../components/TypingEffect";
 import MainPage from "../pages/MainPage";
 import RecordPage from "../pages/RecordPage";
 import RecordDetailPage from "../pages/RecordDetailPage";
-
+import CCTVMonitor from "../pages/CCTVMonitor";
 function RoutesIndex() {
   return (
     <div>
       {/* 네비게이션 바 */}
       <nav>
-        <Link to="/">login</Link> |
-        <Link to="/home">Home</Link> |
-        <Link to="/record">record</Link> |
-        <Link to="/game">game</Link> |
-        <Link to="/oauth">oauth</Link> |
-        <Link to="/settings">settings</Link> |
-        <Link to="/rule">rule</Link> |
-        <Link to="/rulenext">rulenext</Link> |
+        <Link to="/">login</Link> |<Link to="/home">Home</Link> |
+        <Link to="/record">record</Link> |<Link to="/game">game</Link> |
+        <Link to="/oauth">oauth</Link> |<Link to="/settings">settings</Link> |
+        <Link to="/rule">rule</Link> |<Link to="/rulenext">rulenext</Link> |
       </nav>
       <Routes>
         <Route path="/" element={<LoginPage />} />
@@ -39,6 +35,8 @@ function RoutesIndex() {
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/rule" element={<RulePage />} />
         <Route path="/rulenext" element={<RuleNextPage />} />
+        <Route path="/test" element={<TypingEffectPage />} />
+        <Route path="/cctv" element={<CCTVMonitor />} />
         {/* 필요한 라우트 추가 */}
       </Routes>
     </div>
