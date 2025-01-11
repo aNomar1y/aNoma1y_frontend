@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./CCTVMonitor.css";
+import { useNavigate } from "react-router-dom";
 
 const CCTVMonitor = () => {
   const [cctvData, setCctvData] = useState([
@@ -45,9 +46,11 @@ const CCTVMonitor = () => {
   const currentScreenRef = useRef(currentScreen); // 최신 currentScreen 값을 저장
   const [showWarning, setShowWarning] = useState(false); // 상단 경고문 표시 상태
   const [anomalyActive, setAnomalyActive] = useState(false); // 이상현상 활성화 상태
+  const [wrongReports, setWrongReports] = useState(0); // 잘못 보고한 횟수
+  const navigate = useNavigate(); // React Router의 useNavigate
   const anomalyCount = cctvData.filter(
     (screen) => screen.currentAnomaly !== null
-  ).length;
+  ).length; // 이상현상 개수
 
   // 랜덤 이상현상 발생 (10초마다)
   /*
@@ -171,13 +174,19 @@ const CCTVMonitor = () => {
       clearInterval(interval);
     };
   }, []);
-
-  // 화면 전환: 이전 화면
+  //게임 오버 기능
+  useEffect(() => {
+    if (wrongReports >= 3 || anomalyCount >= 3) {
+      alert("게임 오버! 시작화면으로 이동합니다.");
+      navigate("/home");
+    }
+  }, [wrongReports, anomalyCount, navigate]);
 
   // 이상현상 보고 기능
   const reportAnomaly = () => {
     const screen = cctvData[currentScreen];
     if (!screen.currentAnomaly) {
+      setWrongReports((prev) => prev + 1); // 잘못 보고한 횟수 증가
       alert("이상현상이 발생하지 않았습니다.");
       return;
     }
@@ -215,6 +224,7 @@ const CCTVMonitor = () => {
           <span>CAM {cctvData[currentScreen].id}: 114호 실습실</span>
           <span>{new Date().toLocaleString()}</span>
           <span>발생 중인 이상현상: {anomalyCount}개</span>
+          <span>잘못 보고한 횟수: {wrongReports}회</span>
         </div>
         {cctvData[currentScreen].isAdjusting ? (
           <div className="adjusting-screen">화면 조정 중...</div>

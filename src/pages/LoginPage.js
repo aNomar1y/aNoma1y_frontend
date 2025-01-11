@@ -4,23 +4,14 @@ import kakaoLoginButton from "./assets/LoginPage/kakao_login_medium_wide.png";
 import { useNavigate } from "react-router";
 
 
-export const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`;
-
-console.log("KAKAO_AUTH_URI:", KAKAO_AUTH_URI);
-console.log("REACT_APP_API_KEY:", process.env.REACT_APP_API_KEY);
-console.log("REACT_APP_REDIRECT_URI:", process.env.REACT_APP_REDIRECT_URI);
+const API_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function LoginPage() {
   const navigate = useNavigate();
 
   const handleKakaoLogin = () => {
-    const token = localStorage.getItem("token");
-    console.log(token);
-    if (token) {
-      navigate("/home");
-    } else {
-      window.location.href = KAKAO_AUTH_URI;
-    }
+    console.log('dho dksehlsmsrjdi')
+    window.location.href = `${API_BASE_URL}/auth/kakao`;
   };
 
   return (
@@ -42,3 +33,4 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
