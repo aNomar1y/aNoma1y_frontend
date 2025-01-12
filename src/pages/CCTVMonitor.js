@@ -51,6 +51,7 @@ const CCTVMonitor = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [isStatic, setIsStatic] = useState(false); // 지지직 효과 상태
   const navigate = useNavigate(); // React Router의 useNavigate
+  const [showTemporaryImage, setShowTemporaryImage] = useState(false);
   const [remainingTime, setRemainingTime] = useState(180);
   const [gameTime, setGameTime] = useState(new Date("2025-01-15T04:00:00")); // 게임 시작 시간
   const anomalyCount = cctvData.filter(
@@ -180,7 +181,12 @@ const CCTVMonitor = () => {
       navigate("/firedtext");
     }
     if (anomalyCount >= 3) {
-      navigate("/deadtext");
+      // 이상현상 3개 초과: /deadtext로 이동
+      setShowTemporaryImage(true); // 사진 표시 활성화
+      setTimeout(() => {
+        setShowTemporaryImage(false); // 사진 표시 비활성화
+        navigate("/deadtext"); // 0.5초 후 /deadtext로 이동
+      }, 500);
     }
   }, [wrongReports, anomalyCount, navigate]);
 
@@ -263,7 +269,13 @@ const CCTVMonitor = () => {
           </div>
           <span>{formatDateTime(gameTime)}</span> {/* 게임 속 시간 표시 */}
         </div>
-        {cctvData[currentScreen].isAdjusting ? (
+        {showTemporaryImage ? ( // 특정 이미지를 표시하는 조건
+          <img
+            src="/assets/thisisit.jpg" // 특정 이미지 경로
+            alt="Temporary Display"
+            className="cctv-image"
+          />
+        ) : cctvData[currentScreen].isAdjusting ? ( // 화면 조정 중일 때
           <div className="adjusting-screen">
             <div className="adjusting-banner1">
               <span>이상현상이 확인되었습니다.</span>
@@ -273,6 +285,7 @@ const CCTVMonitor = () => {
             </div>
           </div>
         ) : (
+          // 기본 상태: CCTV 화면 또는 이상현상
           <img
             src={
               cctvData[currentScreen].currentAnomaly
@@ -283,6 +296,7 @@ const CCTVMonitor = () => {
             className={`cctv-image ${isStatic ? "static-effect" : ""}`}
           />
         )}
+
         <button className="arrow left-arrow" onClick={handlePreviousScreen}>
           &#9664;
         </button>
