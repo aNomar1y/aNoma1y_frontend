@@ -131,17 +131,67 @@ body {
   }
 }
 
+@keyframes wave-animation {
+  0% {
+    transform: translateX(0) skewX(0deg);
+  }
+  25% {
+    transform: translateX(-5px) skewX(-2deg);
+  }
+  50% {
+    transform: translateX(5px) skewX(2deg);
+  }
+  75% {
+    transform: translateX(-3px) skewX(-1deg);
+  }
+  100% {
+    transform: translateX(0) skewX(0deg);
+  }
+}
+
+/* adjusting-screen 배경 */
 .adjusting-screen {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: gray;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
+  background-image: url('./assets/MainPage/adjustback2.jpg'); /* 배경 이미지 */
+  background-size: cover; /* 배경 이미지를 화면에 맞게 조정 */
+  background-position: center;
+  color: white; /* 기본 텍스트 색상 */
+  font-family: Arial, sans-serif;
+
+  /* 일렁거림 애니메이션 추가 */
+  animation: wave-animation 1s infinite ease-in-out;
 }
+
+/* 빨간 직사각형 (상단 배너) */
+.adjusting-banner1 {
+  background-color: red;
+  color: yellow;
+  font-size: 32px;
+  font-weight: bold;
+  padding: 20px 40px;
+  margin-bottom: 20px; /* 간격 */
+  text-align: center;
+  border-radius: 5px; /* 약간 둥근 모서리 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+}
+
+/* 빨간 직사각형 (하단 메시지) */
+.adjusting-message2 {
+  background-color: red;
+  color: yellow;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 15px 30px;
+  text-align: center;
+  border-radius: 5px; /* 약간 둥근 모서리 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+}
+
 
 .arrow {
   position: absolute;

@@ -239,7 +239,14 @@ const CCTVMonitor = () => {
           <span>잘못 보고한 횟수: {wrongReports}회</span>
         </div>
         {cctvData[currentScreen].isAdjusting ? (
-          <div className="adjusting-screen">화면 조정 중...</div>
+          <div className="adjusting-screen">
+            <div className = "adjusting-banner1">
+              <span>이상현상이 확인되었습니다.</span>
+            </div>
+            <div className= "adjusting-banner2">
+              <span>잠시 기다려주십시오...</span>
+            </div>
+          </div>
         ) : (
           <img
             src={
