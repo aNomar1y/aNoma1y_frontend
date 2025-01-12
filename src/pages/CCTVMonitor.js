@@ -6,39 +6,39 @@ const CCTVMonitor = () => {
   const [cctvData, setCctvData] = useState([
     {
       id: 1,
+      name: "114호 실습실",
       anomalies: ["1-1", "1-2", "1-3"],
       currentAnomaly: null,
-      isAdjusting: false,
     },
     {
       id: 2,
+      name: "1층 매점",
       anomalies: ["2-1", "2-2", "2-3"],
       currentAnomaly: null,
-      isAdjusting: false,
     },
     {
       id: 3,
+      name: "201호 강의실",
       anomalies: ["3-1", "3-2", "3-3"],
       currentAnomaly: null,
-      isAdjusting: false,
     },
     {
       id: 4,
+      name: "1층 복도",
       anomalies: ["4-1", "4-2", "4-3"],
       currentAnomaly: null,
-      isAdjusting: false,
     },
     {
       id: 5,
+      name: "117호 다목적실",
       anomalies: ["5-1", "5-2", "5-3"],
       currentAnomaly: null,
-      isAdjusting: false,
     },
     {
       id: 6,
+      name: "대피소 계단",
       anomalies: ["6-1", "6-2", "6-3"],
       currentAnomaly: null,
-      isAdjusting: false,
     },
   ]);
 
@@ -231,7 +231,9 @@ const CCTVMonitor = () => {
       )}
       <div className="cctv-screen">
         <div className="screen-header">
-          <span>CAM {cctvData[currentScreen].id}: 114호 실습실</span>
+          <span>
+            CAM {cctvData[currentScreen].id}: {cctvData[currentScreen].name}
+          </span>
           <span>{new Date().toLocaleString()}</span>
           <span>발생 중인 이상현상: {anomalyCount}개</span>
           <span>잘못 보고한 횟수: {wrongReports}회</span>
