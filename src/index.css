@@ -5,3 +5,7 @@ html, body {
     background-color: #f0f0f0;
     cursor: url('./pages/assets/mouse/green_transparent.png'), auto !important; /* 기본 커서 */
 }
+
+* {
+    cursor: url('./pages/assets/mouse/green_transparent.png'), auto !important;
+  }
