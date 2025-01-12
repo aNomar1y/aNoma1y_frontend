@@ -21,6 +21,9 @@ body {
   justify-content: space-between;
   width: 100%;
   font-size: 24px;
+  margin-top: 6px;
+  align-items: center;
+  padding-right: 10px; /* 좌우 여백 추가 (오른쪽 포함) */
   color: rgb(0, 200, 0);
   z-index: 10;
   margin-bottom: 10px;
@@ -197,13 +200,17 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+  background-color: rgba(0, 0, 0, 0); /* 반투명 배경 */
   color: white;
   border: none;
   font-size: 24px;
   padding: 10px;
   cursor: pointer;
   z-index: 10;
+}
+
+.arrow:hover {
+  color: rgba(174, 174, 174, 0.5);
 }
 
 .left-arrow {
@@ -218,8 +225,8 @@ body {
   position: absolute;
   bottom: 20px; /* 화면 하단에서 20px 떨어짐 */
   right: 20px; /* 화면 오른쪽에서 20px 떨어짐 */
-  font-size: 18px; /* 글씨 크기 */
-  color: green; /* 글씨 색상 초록 */
+  font-size: 30px; /* 글씨 크기 */
+  color: rgb(0, 200, 0); /* 글씨 색상 초록 */
   background-color: transparent; /* 배경색 없음 */
   border: none; /* 테두리 없음 */
   cursor: pointer; /* 클릭 가능한 커서 */
@@ -237,7 +244,7 @@ body {
   left: 0;
   width: 100%;
   background-color: red;
-  color: white;
+  color: yellow;
   text-align: center;
   font-size: 18px;
   font-weight: bold;
@@ -246,6 +253,39 @@ body {
 }
 
 .screen-header span:last-child {
-  color: red; /* 이상현상 개수를 강조 */
-  font-weight: bold;
+  color: rgb(0, 200, 0); /* 이상현상 개수를 강조 */
+}
+
+.recording-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%; /* 동그라미 모양 */
+  margin-right: 8px; /* 텍스트와 간격 조정 */
+  margin-left: 8px;
+  animation: pulse 1.5s infinite; /* 깜박이는 애니메이션 추가 (선택 사항) */
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.wrong-reports-counter {
+  position: absolute;
+  bottom: 10px; /* 화면 하단에서의 위치 */
+  left: 10px; /* 화면 좌측에서의 위치 */
+  background-color: rgba(0, 0, 0, 0.6); /* 반투명 배경으로 가독성 향상 */
+  color: red; /* 텍스트 색상 */
+  padding: 5px 10px; /* 텍스트 주변 여백 */
+  font-size: 14px; /* 텍스트 크기 */
+  z-index: 10; /* 다른 요소 위에 표시 */
 }
