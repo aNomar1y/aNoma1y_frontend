@@ -4,7 +4,7 @@
   font-weight: normal;
   font-style: normal;
 }
-.deadtext-container {
+.firedtext-container {
   background-color: #9b0003; /* 붉은 배경 */
   color: white; /* 텍스트 색상 */
   height: 100vh; /* 화면 전체 높이 */
@@ -17,10 +17,12 @@
   font-family: "CustomFont1", Arial, sans-serif; /* 폰트 적용 */
 }
 
-.deadtext-content {
+.firedtext-content {
+  display: block;
   max-width: 100%; /* 텍스트의 최대 너비 제한 */
-  text-align: left; /* 텍스트를 왼쪽 정렬 */
-  line-height: 1; /* 줄 간격 */
-  font-size: 4.5rem; /* 텍스트 크기 */
+  text-align: center; /* 텍스트를 왼쪽 정렬 */
+  line-height: 5; /* 줄 간격 */
+  font-size: 3rem; /* 텍스트 크기 */
+  white-space: pre-wrap; /* 줄바꿈(\n)을 화면에 그대로 적용*/
   font-family: "CustomFont1", Arial, sans-serif; /* 폰트 적용 */
 }
