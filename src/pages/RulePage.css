@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'CustomFont';
+  font-family: 'CustomFont1';
   src: url('./assets/fonts/font1.ttf') format('truetype'); /* 파일 경로와 형식 */
   font-weight: normal;
   font-style: normal;
@@ -16,7 +16,7 @@
   position: relative; /* 버튼 위치를 고정하기 위해 필요 */
   padding: 20px; /* 화면 가장자리 여백 */
   box-sizing: border-box;
-  font-family: 'CustomFont', Arial, sans-serif /* 폰트 적용 */
+  font-family: 'CustomFont1', Arial, sans-serif /* 폰트 적용 */
 }
 
 .rule-content {
@@ -25,7 +25,7 @@
   line-height: 2.5; /* 줄 간격 */
   font-size: 2.8rem; /* 텍스트 크기 */
   white-space: pre-wrap; /* 줄바꿈(\n)을 화면에 그대로 적용*/
-  font-family: 'CustomFont', Arial, sans-serif /* 폰트 적용 */
+  font-family: 'CustomFont1', Arial, sans-serif /* 폰트 적용 */
 }
 
 .rule-next-button {
