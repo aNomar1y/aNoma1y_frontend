@@ -52,7 +52,7 @@ const RecordPage = () => {
 
 export default RecordPage;
 
-{
+
   /* <ul className="record-list">
         {records.map((record, index) => (
           <li
@@ -64,4 +64,4 @@ export default RecordPage;
           </li>
         ))}
       </ul> */
-}
+

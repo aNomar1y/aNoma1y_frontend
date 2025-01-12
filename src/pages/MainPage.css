@@ -32,7 +32,7 @@
 /* 로그아웃 이미지 */
 .logout-image {
   position: absolute; /* 절대 위치 설정 */
-  bottom: 10px; /* 하단에서 10px 간격 */
+  bottom: 33px; /* 하단에서 33px 간격 */
   right: 10px; /* 오른쪽에서 10px 간격 */
   width: 50px; /* 로그아웃 이미지 크기 */
   cursor: pointer; /* 클릭 가능한 커서 */
@@ -46,7 +46,7 @@
 /* 회원탈퇴 이미지 */
 .delete-image {
   position: absolute; /* 절대 위치 설정 */
-  bottom: 30px; /* 하단에서 10px 간격 */
+  bottom: 10px; /* 하단에서 10px 간격 */
   right: 10px; /* 오른쪽에서 10px 간격 */
   width: 50px; /* 회원탈퇴 이미지 크기 */
   cursor: pointer; /* 클릭 가능한 커서 */
