@@ -30,11 +30,16 @@ body {
   font-size: 24px;
   margin-top: 6px;
   align-items: center;
-  padding-right: 10px; /* 좌우 여백 추가 (오른쪽 포함) */
+  padding-right: 10px; /* 오른쪽 여백을 20px로 증가 */
   color: rgb(0, 200, 0);
   z-index: 10;
   margin-bottom: 10px;
   font-family: 'CustomFont2', Arial, sans-serif;
+}
+
+.header-left {
+  display: flex;
+  align-items: center; /* 동그라미와 텍스트를 세로로 중앙 정렬 */
 }
 
 /* 이미지 컨테이너 */
@@ -168,7 +173,7 @@ body {
   align-items: center;
   width: 100%;
   height: 100%;
-  background-image: url('./assets/MainPage/adjustback2.jpg'); /* 배경 이미지 */
+  background-image: url("./assets/MainPage/adjustback2.jpg"); /* 배경 이미지 */
   background-size: cover; /* 배경 이미지를 화면에 맞게 조정 */
   background-position: center;
   color: white; /* 기본 텍스트 색상 */
@@ -202,7 +207,6 @@ body {
   border-radius: 5px; /* 약간 둥근 모서리 */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
 }
-
 
 .arrow {
   position: absolute;
@@ -261,7 +265,7 @@ body {
 }
 
 .screen-header span:last-child {
-  color: rgb(0, 200, 0); /* 이상현상 개수를 강조 */
+  margin-right: 20px; /* 오른쪽 텍스트만 추가적인 여백 */
 }
 
 .recording-indicator {
@@ -273,6 +277,7 @@ body {
   margin-right: 8px; /* 텍스트와 간격 조정 */
   margin-left: 8px;
   animation: pulse 1.5s infinite; /* 깜박이는 애니메이션 추가 (선택 사항) */
+  vertical-align: middle;
 }
 
 @keyframes pulse {

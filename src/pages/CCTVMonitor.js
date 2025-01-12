@@ -209,8 +209,8 @@ const CCTVMonitor = () => {
   //게임 오버 기능
   useEffect(() => {
     if (wrongReports >= 3 || anomalyCount >= 3) {
-      alert("게임 오버! 시작화면으로 이동합니다.");
-      navigate("/home");
+      //alert("게임 오버! 시작화면으로 이동합니다.");
+      navigate("/deadtext");
     }
   }, [wrongReports, anomalyCount, navigate]);
 
@@ -272,10 +272,10 @@ const CCTVMonitor = () => {
         </div>
         {cctvData[currentScreen].isAdjusting ? (
           <div className="adjusting-screen">
-            <div className = "adjusting-banner1">
+            <div className="adjusting-banner1">
               <span>이상현상이 확인되었습니다.</span>
             </div>
-            <div className= "adjusting-banner2">
+            <div className="adjusting-banner2">
               <span>잠시 기다려주십시오...</span>
             </div>
           </div>
