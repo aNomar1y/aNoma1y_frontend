@@ -29,7 +29,6 @@
 
 /* 카카오 로그인 버튼 */
 .kakao-login-button {
-  cursor: pointer;
   width: 400px;
   margin-top: 1rem;
   opacity: 0.7;

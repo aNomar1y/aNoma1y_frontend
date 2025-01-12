@@ -230,7 +230,6 @@ body {
   border: none;
   font-size: 24px;
   padding: 10px;
-  cursor: pointer;
   z-index: 10;
 }
 
@@ -254,7 +253,6 @@ body {
   color: rgb(0, 200, 0); /* 글씨 색상 초록 */
   background-color: transparent; /* 배경색 없음 */
   border: none; /* 테두리 없음 */
-  cursor: pointer; /* 클릭 가능한 커서 */
   text-decoration: none; /* 밑줄 제거 */
   z-index: 10; /* 다른 요소 위에 표시 */
 }
@@ -382,7 +380,6 @@ body {
   border: none;
   padding: 8px 16px;
   font-size: 14px;
-  cursor: pointer;
   font-family: "CustomFont1", Arial, sans-serif; /* 폰트 적용 */
   margin-bottom: 20px;
 }

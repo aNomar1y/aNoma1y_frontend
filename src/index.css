@@ -1,5 +1,7 @@
-body {
+html, body {
     margin: 0;
+    height: 100%;
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
+    cursor: url('./pages/assets/mouse/green_transparent.png'), auto !important; /* 기본 커서 */
 }

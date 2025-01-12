@@ -20,7 +20,6 @@
 .button-image {
   width: 200px; /* 버튼 이미지 크기 */
   margin-bottom: 70px; /* 아래 여백 */
-  cursor: pointer; /* 클릭 가능하도록 포인터 커서 추가 */
   opacity: 0.5;
   transition: opacity 0.4s ease; /* 호버 효과 */
 }
@@ -35,7 +34,6 @@
   bottom: 33px; /* 하단에서 33px 간격 */
   right: 10px; /* 오른쪽에서 10px 간격 */
   width: 50px; /* 로그아웃 이미지 크기 */
-  cursor: pointer; /* 클릭 가능한 커서 */
   opacity: 0.5; /* 약간의 투명도 */
   transition: opacity 0.3s ease; /* 호버 시 부드러운 효과 */
 }
@@ -49,7 +47,6 @@
   bottom: 10px; /* 하단에서 10px 간격 */
   right: 10px; /* 오른쪽에서 10px 간격 */
   width: 50px; /* 회원탈퇴 이미지 크기 */
-  cursor: pointer; /* 클릭 가능한 커서 */
   opacity: 0.5; /* 약간의 투명도 */
   transition: opacity 0.3s ease; /* 호버 시 부드러운 효과 */
 }

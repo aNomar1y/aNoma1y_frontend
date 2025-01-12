@@ -47,7 +47,6 @@
   font-size: 3rem; /* 화살표 크기 */
   font-weight: bold; /* 화살표 두껍게 */
   color: white;
-  cursor: pointer;
 }
 
 .back-button:hover, .next-button:hover {

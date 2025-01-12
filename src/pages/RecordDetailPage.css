@@ -47,6 +47,5 @@
 
 .back-button {
   font-size: 4rem; /* 화살표 크기 */
-  cursor: pointer;
   margin-right: 30px; /* 화살표와 제목 간격 */
 }
