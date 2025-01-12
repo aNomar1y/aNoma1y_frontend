@@ -49,6 +49,8 @@ const CCTVMonitor = () => {
   const [wrongReports, setWrongReports] = useState(0); // 잘못 보고한 횟수
   const [isStatic, setIsStatic] = useState(false); // 지지직 효과 상태
   const navigate = useNavigate(); // React Router의 useNavigate
+  const [remainingTime, setRemainingTime] = useState(180);
+  const [gameTime, setGameTime] = useState(new Date("2025-01-15T04:00:00")); // 게임 시작 시간
   const anomalyCount = cctvData.filter(
     (screen) => screen.currentAnomaly !== null
   ).length; // 이상현상 개수
@@ -102,6 +104,35 @@ const CCTVMonitor = () => {
       currentScreenRef.current = newScreen; // 최신 값 업데이트
       return newScreen;
     });
+  };
+
+  // 게임 속 시간 흐름 (4.09초마다 1분씩 증가)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setGameTime((prevTime) => new Date(prevTime.getTime() + 60 * 1000)); // 1분 추가
+    }, 4090); // 4.09초마다 실행
+
+    // 3분 후 게임 종료 및 승리
+    const victoryTimeout = setTimeout(() => {
+      alert("승리했습니다! 로비로 돌아갑니다.");
+      navigate("/home");
+    }, 180000); // 3분 * 1.5초 = 4500ms
+
+    return () => {
+      clearInterval(timer); // 타이머 정리
+      clearTimeout(victoryTimeout); // 승리 타임아웃 정리
+    };
+  }, [navigate]);
+
+  // 날짜와 시간 포맷팅
+  const formatDateTime = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${year}/${month}/${day} ${hours}:${minutes}`;
   };
 
   // 이상현상 발생 로직
@@ -231,12 +262,13 @@ const CCTVMonitor = () => {
       )}
       <div className="cctv-screen">
         <div className="screen-header">
-          <span>
-            CAM {cctvData[currentScreen].id}: {cctvData[currentScreen].name}
-          </span>
-          <span>{new Date().toLocaleString()}</span>
-          <span>발생 중인 이상현상: {anomalyCount}개</span>
-          <span>잘못 보고한 횟수: {wrongReports}회</span>
+          <div className="header-left">
+            <span className="recording-indicator"></span>
+            <span>
+              CAM {cctvData[currentScreen].id}: {cctvData[currentScreen].name}
+            </span>
+          </div>
+          <span>{formatDateTime(gameTime)}</span> {/* 게임 속 시간 표시 */}
         </div>
         {cctvData[currentScreen].isAdjusting ? (
           <div className="adjusting-screen">화면 조정 중...</div>
@@ -261,6 +293,9 @@ const CCTVMonitor = () => {
       <button className="report-button" onClick={reportAnomaly}>
         보고하기
       </button>
+      <div className="wrong-reports-counter">
+        잘못 보고한 횟수: {wrongReports}회
+      </div>
     </div>
   );
 };
