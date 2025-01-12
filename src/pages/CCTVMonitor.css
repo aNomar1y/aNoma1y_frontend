@@ -208,7 +208,7 @@ body {
   top: 75%; /* 화면 하단에 더 가깝게 배치 */
   left: 50%;
   transform: translateX(-50%);
-  width: 25%; /* 너비 고정 */
+  width: 20%; /* 너비 고정 */
   height: 50px; /* 고정된 높이 */
   background-color: red;
   color: yellow;
@@ -218,8 +218,6 @@ body {
   justify-content: center; /* 수평 중앙 정렬 */
   align-items: center; /* 수직 중앙 정렬 */
   padding: 0; /* 패딩 제거 */
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   z-index: 10;
 }
 
