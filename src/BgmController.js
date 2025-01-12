@@ -12,7 +12,7 @@ const BgmController = ({ shouldPlay }) => {
 
     if (audioRef.current) {
       // 경로에 따라 BGM 변경
-      if (currentPath === "/" || currentPath === "/main") {
+      if (currentPath === "/" || currentPath === "/home") {
         audioRef.current.src = bgmLoginMain;
       } else {
         audioRef.current.src = bgmOther;
