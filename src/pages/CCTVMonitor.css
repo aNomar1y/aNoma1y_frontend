@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'CustomFont2';
+  font-family: 'CustomFont';
   src: url('./assets/fonts/font2.ttf') format('truetype'); /* 파일 경로와 형식 */
   font-weight: normal;
   font-style: normal;
@@ -34,7 +34,7 @@ body {
   color: rgb(0, 200, 0);
   z-index: 10;
   margin-bottom: 10px;
-  font-family: 'CustomFont2', Arial, sans-serif;
+  font-family: 'CustomFont', Arial, sans-serif;
 }
 
 /* 이미지 컨테이너 */
@@ -173,34 +173,42 @@ body {
   background-position: center;
   color: white; /* 기본 텍스트 색상 */
   font-family: Arial, sans-serif;
-
-  /* 일렁거림 애니메이션 추가 */
-  animation: wave-animation 1s infinite ease-in-out;
+  position: relative; /* 자식 요소의 위치 기준 */
 }
 
-/* 빨간 직사각형 (상단 배너) */
+/* 상단 빨간 직사각형 */
 .adjusting-banner1 {
-  background-color: red;
-  color: yellow;
-  font-size: 32px;
-  font-weight: bold;
-  padding: 20px 40px;
-  margin-bottom: 20px; /* 간격 */
-  text-align: center;
-  border-radius: 5px; /* 약간 둥근 모서리 */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+  position: absolute;
+  top: 30%; /* 화면 상단에서 30% 위치 */
+  left: 0;
+  width: 100%; /* 좌우를 완전히 채움 */
+  background-color: red; /* 빨간 배경 */
+  color: yellow; /* 텍스트 색상 */
+  font-size: 80px; /* 텍스트 크기 줄임 */
+  font-weight: bold; /* 텍스트 굵기 */
+  padding: 60px 0; /* 직사각형 높이 줄임 */
+  text-align: center; /* 텍스트를 중앙 정렬 */
+  z-index: 10; /* 배경보다 위로 배치 */
 }
 
-/* 빨간 직사각형 (하단 메시지) */
-.adjusting-message2 {
+.adjusting-banner2 {
+  position: absolute;
+  top: 75%; /* 화면 하단에 더 가깝게 배치 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20%;
+  height: auto; /* 높이를 자동으로 설정 */
   background-color: red;
   color: yellow;
-  font-size: 24px;
+  font-size: 36px;
   font-weight: bold;
-  padding: 15px 30px;
-  text-align: center;
-  border-radius: 5px; /* 약간 둥근 모서리 */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+  display: flex; /* Flexbox 적용 */
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  padding: 0; /* 패딩 제거 */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 10;
 }
 
 

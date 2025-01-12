@@ -15,6 +15,7 @@ import RecordPage from "../pages/RecordPage";
 import RecordDetailPage from "../pages/RecordDetailPage";
 import DeadTextPage from "../pages/DeadTextPage";
 import CCTVMonitor from "../pages/CCTVMonitor";
+
 function RoutesIndex() {
   return (
     <div>
