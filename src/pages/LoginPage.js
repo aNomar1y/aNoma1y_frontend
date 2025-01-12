@@ -6,14 +6,8 @@ import { useNavigate } from "react-router";
 
 const API_BASE_URL = process.env.REACT_APP_BASE_URL;
 
-function LoginPage({ onPlayBgm }) {
+function LoginPage() {
   const navigate = useNavigate();
-  const [bgmStarted, setBgmStarted] = useState(false);
-
-  const handleStartBgm = () => {
-    setBgmStarted(true);
-    onPlayBgm(true); // 부모 컴포넌트(App.js)로 BGM 재생 요청
-  };
 
 
   const handleKakaoLogin = () => {
@@ -28,11 +22,7 @@ function LoginPage({ onPlayBgm }) {
         a<span>N</span>oma<span>1</span>y
       </h1>
 
-      {!bgmStarted && (
-        <button onClick={handleStartBgm} className="bgm-start-button">
-          Start BGM
-        </button>
-      )}
+      
 
       {/* 카카오 로그인 버튼 */}
       <img

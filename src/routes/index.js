@@ -30,8 +30,8 @@ function RoutesIndex({ onPlayBgm }) {
         <Link to="/firedtext">firedtext</Link>
       </nav>
       <Routes>
-        <Route path="/" element={<LoginPage onPlayBgm={onPlayBgm}/>} />
-        <Route path="/home" element={<MainPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/home" element={<MainPage onPlayBgm={onPlayBgm}/>} />
         <Route path="/record" element={<RecordPage />} />
         <Route path="/:id" element={<RecordDetailPage />} />
         <Route path="/game" element={<GameMainPage />} />

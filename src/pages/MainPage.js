@@ -43,8 +43,15 @@ const fetchKakaoId = async (accessToken) => {
   }
 };
 
-const MainPage = () => {
+const MainPage = ({ onPlayBgm }) => {
   const [userInfo, setUserInfo] = useState(null);
+
+  const [bgmStarted, setBgmStarted] = useState(false);
+  
+    const handleStartBgm = () => {
+      setBgmStarted(true);
+      onPlayBgm(true); // 부모 컴포넌트(App.js)로 BGM 재생 요청
+    };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -113,6 +120,11 @@ const MainPage = () => {
   return (
     <div className="container">
       <img src={logo} alt="로고" />
+      {!bgmStarted && (
+        <button onClick={handleStartBgm} className="bgm-start-button">
+          Start BGM
+        </button>
+      )}
       <img
         src={mission}
         alt="mission"
