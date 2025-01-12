@@ -47,6 +47,8 @@ const CCTVMonitor = () => {
   const [showWarning, setShowWarning] = useState(false); // 상단 경고문 표시 상태
   const [anomalyActive, setAnomalyActive] = useState(false); // 이상현상 활성화 상태
   const [wrongReports, setWrongReports] = useState(0); // 잘못 보고한 횟수
+  const [alertMessage, setAlertMessage] = useState(""); // 경고 메시지 상태
+  const [showAlert, setShowAlert] = useState(false);
   const [isStatic, setIsStatic] = useState(false); // 지지직 효과 상태
   const navigate = useNavigate(); // React Router의 useNavigate
   const [remainingTime, setRemainingTime] = useState(180);
@@ -55,41 +57,6 @@ const CCTVMonitor = () => {
     (screen) => screen.currentAnomaly !== null
   ).length; // 이상현상 개수
 
-  // 랜덤 이상현상 발생 (10초마다)
-  /*
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCctvData((prevData) => {
-        const availableScreens = prevData.filter(
-          (screen, index) =>
-            index !== currentScreen && screen.currentAnomaly === null
-        ); // 현재 화면 제외
-        console.log(
-          "Available Screens:",
-          availableScreens.map((s) => s.id)
-        );
-        const randomScreen =
-          availableScreens[Math.floor(Math.random() * availableScreens.length)];
-        const availableAnomalies = randomScreen.anomalies.filter(
-          (anomaly) => anomaly !== randomScreen.currentAnomaly
-        );
-        console.log("Available Anomalies for Screen:", availableAnomalies);
-        const newAnomaly =
-          availableAnomalies[
-            Math.floor(Math.random() * availableAnomalies.length)
-          ] || null;
-        console.log("Generated Anomaly:", newAnomaly);
-        return prevData.map((screen) =>
-          screen.id === randomScreen.id
-            ? { ...screen, currentAnomaly: newAnomaly }
-            : screen
-        );
-      });
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
-  */
   // 화면 전환: 다음 화면
   const handleNextScreen = () => {
     setCurrentScreen((prevScreen) => {
@@ -185,7 +152,6 @@ const CCTVMonitor = () => {
         });
       }, 10000); // 10초 간격으로 이상현상 발생
     };
-
     // 25초 후 경고문 표시
     const warningTimeout = setTimeout(() => {
       setShowWarning(true);
@@ -206,10 +172,14 @@ const CCTVMonitor = () => {
       clearInterval(interval);
     };
   }, []);
+
   //게임 오버 기능
   useEffect(() => {
-    if (wrongReports >= 3 || anomalyCount >= 3) {
+    if (wrongReports >= 3) {
       //alert("게임 오버! 시작화면으로 이동합니다.");
+      navigate("/firedtext");
+    }
+    if (anomalyCount >= 3) {
       navigate("/deadtext");
     }
   }, [wrongReports, anomalyCount, navigate]);
@@ -223,14 +193,25 @@ const CCTVMonitor = () => {
     return () => clearInterval(staticInterval);
   }, []);
 
+  // 경고 창 닫기
+  const closeAlert = () => {
+    setShowAlert(false); // 경고 창 닫기
+  };
+
   // 이상현상 보고 기능
   const reportAnomaly = () => {
     const screen = cctvData[currentScreen];
     if (!screen.currentAnomaly) {
       setWrongReports((prev) => prev + 1); // 잘못 보고한 횟수 증가
-      alert("이상현상이 발생하지 않았습니다.");
+      //alert("이상현상이 발견되지 않았습니다.");
+      setAlertMessage("이상현상이 발견되지 않았습니다."); // 경고 메시지 설정
+      setShowAlert(true); // 경고 창 표시
       return;
     }
+    // 경고 창 닫기
+    const closeAlert = () => {
+      setShowAlert(false); // 경고 창 닫기
+    };
 
     // 이상현상 보고 후 정상 화면으로 복귀
     setCctvData((prevData) =>
@@ -258,6 +239,18 @@ const CCTVMonitor = () => {
       {showWarning && (
         <div className="warning-banner">
           경고: 이상현상이 감지될 수 있습니다. 발견 즉시 보고하십시오.
+        </div>
+      )}
+      {showAlert && (
+        <div className="alert-popup">
+          <div className="alert-content">
+            <div className="alert-striped-top"></div> {/* 상단 줄무늬 */}
+            <p className="alert-title">WARNING</p> {/* 메시지 제목 */}
+            <div className="alert-icon">⚠️</div> {/* 경고 아이콘 */}
+            <p>{alertMessage}</p> {/* 메시지 본문 */}
+            <button onClick={closeAlert}>확인</button>
+            <div className="alert-striped-bottom"></div> {/* 하단 줄무늬 */}
+          </div>
         </div>
       )}
       <div className="cctv-screen">
