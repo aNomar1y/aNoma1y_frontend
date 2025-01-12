@@ -16,7 +16,8 @@ import RecordDetailPage from "../pages/RecordDetailPage";
 import DeadTextPage from "../pages/DeadTextPage";
 import CCTVMonitor from "../pages/CCTVMonitor";
 import FiredTextPage from "../pages/FiredTextPage";
-function RoutesIndex() {
+
+function RoutesIndex({ onPlayBgm }) {
   return (
     <div>
       {/* 네비게이션 바 */}
@@ -29,7 +30,7 @@ function RoutesIndex() {
         <Link to="/firedtext">firedtext</Link>
       </nav>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage onPlayBgm={onPlayBgm}/>} />
         <Route path="/home" element={<MainPage />} />
         <Route path="/record" element={<RecordPage />} />
         <Route path="/:id" element={<RecordDetailPage />} />
