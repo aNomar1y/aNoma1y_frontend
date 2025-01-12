@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./LoginPage.css"; // CSS 파일 import
 import kakaoLoginButton from "./assets/LoginPage/kakao_login_medium_wide.png";
 import { useNavigate } from "react-router";
@@ -6,8 +6,15 @@ import { useNavigate } from "react-router";
 
 const API_BASE_URL = process.env.REACT_APP_BASE_URL;
 
-function LoginPage() {
+function LoginPage({ onPlayBgm }) {
   const navigate = useNavigate();
+  const [bgmStarted, setBgmStarted] = useState(false);
+
+  const handleStartBgm = () => {
+    setBgmStarted(true);
+    onPlayBgm(true); // 부모 컴포넌트(App.js)로 BGM 재생 요청
+  };
+
 
   const handleKakaoLogin = () => {
     console.log('dho dksehlsmsrjdi')
@@ -20,6 +27,12 @@ function LoginPage() {
       <h1>
         a<span>N</span>oma<span>1</span>y
       </h1>
+
+      {!bgmStarted && (
+        <button onClick={handleStartBgm} className="bgm-start-button">
+          Start BGM
+        </button>
+      )}
 
       {/* 카카오 로그인 버튼 */}
       <img
