@@ -12,10 +12,15 @@ const BgmController = ({ shouldPlay }) => {
 
     if (audioRef.current) {
       // 경로에 따라 BGM 변경
-      if (currentPath === "/" || currentPath === "/home") {
-        audioRef.current.src = bgmLoginMain;
+      let newSrc;
+      if (currentPath === "/" || currentPath === "/home" || currentPath === "/rule" || currentPath === "/rulenext") {
+        newSrc = bgmLoginMain;
       } else {
-        audioRef.current.src = bgmOther;
+        newSrc = bgmOther;
+      }
+
+      if(audioRef.current.src !== window.location.origin + newSrc) {
+        audioRef.current.src = newSrc;
       }
 
       // BGM 재생 제어

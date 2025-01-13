@@ -121,9 +121,12 @@ const MainPage = ({ onPlayBgm }) => {
     <div className="container">
       <img src={logo} alt="로고" />
       {!bgmStarted && (
-        <button onClick={handleStartBgm} className="bgm-start-button">
-          Start BGM
-        </button>
+        <span
+          className="music-icon"
+          onClick={handleStartBgm}
+        >
+          ♫
+        </span>
       )}
       <img
         src={mission}
