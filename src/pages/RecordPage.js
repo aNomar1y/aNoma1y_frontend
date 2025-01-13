@@ -18,12 +18,12 @@ const RecordPage = () => {
 
   // // 현상 기록 리스트 데이터와 해당 경로
   const records = [
-    { name: "114호 실습실", path: "/room114" },
-    { name: "1층 복도", path: "/hall" },
-    { name: "매점", path: "/store" },
-    { name: "117호 다목적실", path: "/room117" },
-    { name: "114호 외부 창문", path: "/window114" },
+    { name: "CCTV실", path: "/cctv_room" },
+    { name: "체력단련실", path: "/gym" },
+    { name: "창밖", path: "/outside" },
     { name: "201호 강의실", path: "/room201" },
+    { name: "117호 다목적실", path: "/room117" },
+    { name: "대피소 계단", path: "/stairs" },
   ];
 
   return (

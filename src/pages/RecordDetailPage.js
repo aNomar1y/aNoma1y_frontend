@@ -82,43 +82,43 @@ const getDescription = (item) => {
 
   // 상세 기록 데이터
   const recordDetails = {
-    room114: {
-      title: "114호 실습실",
+    cctv_room: {
+      title: "CCTV실",
       images: (groupedData[0] || []).map((item) => ({
         src: `anomaly-${item}.jpg`, // 파일명 변경
         description: getDescription(item), // 기본 설명 설정
       })),
     },
-    hall: {
-      title: "1층 복도",
+    gym: {
+      title: "체력단련실",
       images: (groupedData[1] || []).map((item) => ({
         src: `anomaly-${item}.jpg`, // 파일명 변경
         description: getDescription(item), // 기본 설명 설정
       })),
     },
-    store: {
-      title: "매점",
+    outside: {
+      title: "창밖",
       images: (groupedData[2] || []).map((item) => ({
-        src: `anomaly-${item}.jpg`, // 파일명 변경
-        description: getDescription(item), // 기본 설명 설정
-      })),
-    },
-    room117: {
-      title: "117호 다목적실",
-      images: (groupedData[3] || []).map((item) => ({
-        src: `anomaly-${item}.jpg`, // 파일명 변경
-        description: getDescription(item), // 기본 설명 설정
-      })),
-    },
-    window114: {
-      title: "114호 외부 창문",
-      images: (groupedData[4] || []).map((item) => ({
         src: `anomaly-${item}.jpg`, // 파일명 변경
         description: getDescription(item), // 기본 설명 설정
       })),
     },
     room201: {
       title: "201호 강의실",
+      images: (groupedData[3] || []).map((item) => ({
+        src: `anomaly-${item}.jpg`, // 파일명 변경
+        description: getDescription(item), // 기본 설명 설정
+      })),
+    },
+    room117: {
+      title: "117호 다목적실",
+      images: (groupedData[4] || []).map((item) => ({
+        src: `anomaly-${item}.jpg`, // 파일명 변경
+        description: getDescription(item), // 기본 설명 설정
+      })),
+    },
+    stairs: {
+      title: "대피소 계단",
       images: (groupedData[5] || []).map((item) => ({
         src: `anomaly-${item}.jpg`, // 파일명 변경
         description: getDescription(item), // 기본 설명 설정
