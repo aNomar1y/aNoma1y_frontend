@@ -16,6 +16,7 @@ import RecordDetailPage from "../pages/RecordDetailPage";
 import DeadTextPage from "../pages/DeadTextPage";
 import CCTVMonitor from "../pages/CCTVMonitor";
 import FiredTextPage from "../pages/FiredTextPage";
+import WinPage from "../pages/WinPage";
 
 function RoutesIndex({ onPlayBgm }) {
   return (
@@ -27,11 +28,11 @@ function RoutesIndex({ onPlayBgm }) {
         <Link to="/oauth">oauth</Link> |<Link to="/settings">settings</Link> |
         <Link to="/rule">rule</Link> |<Link to="/rulenext">rulenext</Link> |
         <Link to="/deadtext">deadtext</Link> |
-        <Link to="/firedtext">firedtext</Link>
+        <Link to="/firedtext">firedtext</Link> |<Link to="/win">win</Link>
       </nav>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/home" element={<MainPage onPlayBgm={onPlayBgm}/>} />
+        <Route path="/home" element={<MainPage onPlayBgm={onPlayBgm} />} />
         <Route path="/record" element={<RecordPage />} />
         <Route path="/:id" element={<RecordDetailPage />} />
         <Route path="/game" element={<GameMainPage />} />
@@ -42,6 +43,7 @@ function RoutesIndex({ onPlayBgm }) {
         <Route path="/cctv" element={<CCTVMonitor />} />
         <Route path="/deadtext" element={<DeadTextPage />} />
         <Route path="/firedtext" element={<FiredTextPage />} />
+        <Route path="/win" element={<WinPage />} />
         {/* 필요한 라우트 추가 */}
       </Routes>
     </div>

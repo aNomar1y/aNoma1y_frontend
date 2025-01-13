@@ -19,7 +19,6 @@ const fetchKakaoId = async (accessToken) => {
   }
 };
 
-
 const CCTVMonitor = () => {
   const [cctvData, setCctvData] = useState([
     {
@@ -111,8 +110,7 @@ const CCTVMonitor = () => {
 
     // 3분 후 게임 종료 및 승리
     const victoryTimeout = setTimeout(() => {
-      alert("승리했습니다! 로비로 돌아갑니다.");
-      navigate("/home");
+      navigate("/win");
     }, 180000); // 3분 * 1.5초 = 4500ms
 
     return () => {
@@ -296,7 +294,7 @@ const CCTVMonitor = () => {
       setShowAlert(true); // 경고 창 표시
       return;
     }
-  
+
     // Kakao ID 가져오기
     const kakaoId = await fetchKakaoId(accessToken);
     if (!kakaoId) {
@@ -305,11 +303,11 @@ const CCTVMonitor = () => {
       return;
     }
 
-      // 성공적으로 보고한 이상현상 정보
+    // 성공적으로 보고한 이상현상 정보
     const reportedAnomaly = {
       kakao_id: kakaoId,
       cctv_id: screen.id,
-      anomaly_id: screen.currentAnomaly
+      anomaly_id: screen.currentAnomaly,
     };
 
     console.log("Reported Anomaly:", reportedAnomaly);
@@ -322,13 +320,13 @@ const CCTVMonitor = () => {
       },
       body: JSON.stringify(reportedAnomaly),
     })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Anomaly saved successfully:", data);
-    })
-    .catch((error) => {
-      console.error("Failed to save anomaly:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Anomaly saved successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Failed to save anomaly:", error);
+      });
 
     // 이상현상 보고 후 정상 화면으로 복귀
     setCctvData((prevData) =>
