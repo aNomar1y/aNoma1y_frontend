@@ -23,7 +23,7 @@ const CCTVMonitor = () => {
   const [cctvData, setCctvData] = useState([
     {
       id: 1,
-      name: "114호 실습실",
+      name: "CCTV실",
       anomalies: ["1-1", "1-2", "1-3"],
       currentAnomaly: null,
     },
@@ -35,13 +35,13 @@ const CCTVMonitor = () => {
     },
     {
       id: 3,
-      name: "201호 강의실",
+      name: "창밖",
       anomalies: ["3-1", "3-2", "3-3"],
       currentAnomaly: null,
     },
     {
       id: 4,
-      name: "1층 복도",
+      name: "201호 강의실",
       anomalies: ["4-1", "4-2", "4-3", "4-4"],
       currentAnomaly: null,
     },
