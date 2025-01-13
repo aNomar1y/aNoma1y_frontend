@@ -1,6 +1,6 @@
 /* 전체 화면 설정 */
 .rule-container {
-  background-color: #9B0003; /* 빨간 배경 */
+  background-color: #9b0003; /* 빨간 배경 */
   color: white; /* 흰색 글자 */
   height: 100vh;
   display: flex;
@@ -30,25 +30,38 @@
 }
 
 /* 네비게이션 버튼 컨테이너 */
-.navigation-buttons {
+.rnavigation-buttons {
   position: absolute;
   bottom: 20px;
   width: 100%;
   display: flex;
   justify-content: space-between; /* 왼쪽, 오른쪽 버튼 정렬 */
-  padding: 0 20px;
   box-sizing: border-box;
 }
 
 /* 화살표 버튼 스타일 */
-.back-button, .next-button {
+
+.rback-button,
+.rnext-button {
+  all: unset; /* 기본 스타일 제거 */
   background: none;
   border: none;
   font-size: 3rem; /* 화살표 크기 */
   font-weight: bold; /* 화살표 두껍게 */
   color: white;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
-.back-button:hover, .next-button:hover {
-  color: #FFD700; /* 호버 시 화살표 색상 변경 */
+.rback-button:hover,
+.rnext-button:hover {
+  color: #ffd700; /* 호버 시 화살표 색상 변경 */
+}
+/* 버튼 크기와 정렬 */
+.rback-button {
+  margin-left: 20px; /* 왼쪽 버튼 여백 */
+}
+.rnext-button {
+  margin-right: 20px; /* 오른쪽 버튼 여백 */
 }

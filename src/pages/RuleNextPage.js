@@ -16,11 +16,11 @@ function RuleNextPage() {
         <li>먼저 다가오는 모든 존재와 교류하려 하지 마십시오.</li>
         <li>이곳에서 경험한 일은 외부에 유출될 수 없습니다.</li>
       </ol>
-      <div className="navigation-buttons">
-        <button className="back-button" onClick={() => navigate("/rule")}>
+      <div className="rnavigation-buttons">
+        <button className="rback-button" onClick={() => navigate("/rule")}>
           &larr;
         </button>
-        <button className="next-button" onClick={() => navigate("/cctv")}>
+        <button className="rnext-button" onClick={() => navigate("/cctv")}>
           &rarr;
         </button>
       </div>

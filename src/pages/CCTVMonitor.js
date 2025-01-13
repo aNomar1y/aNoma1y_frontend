@@ -73,6 +73,7 @@ const CCTVMonitor = () => {
   const [gameTime, setGameTime] = useState(new Date("2025-01-15T04:00:00")); // 게임 시작 시간
   const audioRef = useRef(null); // 클릭 소리를 제어하기 위한 ref
   const beepAudioRef = useRef(null); // 화면조정 소리 제어를 위한 ref
+  const screamingAudioRef = useRef(null); // 비명 소리 제어를 위한 ref
   const anomalyCount = cctvData.filter(
     (screen) => screen.currentAnomaly !== null
   ).length; // 이상현상 개수
@@ -210,8 +211,22 @@ const CCTVMonitor = () => {
     if (anomalyCount >= 3) {
       // 이상현상 3개 초과: /deadtext로 이동
       setShowTemporaryImage(true); // 사진 표시 활성화
+
+      // 비명 소리 재생
+      if (screamingAudioRef.current) {
+        screamingAudioRef.current.currentTime = 0;
+        screamingAudioRef.current.play();
+      }
+
       setTimeout(() => {
         setShowTemporaryImage(false); // 사진 표시 비활성화
+
+        //비명소리 정지
+        if(screamingAudioRef.current) {
+          screamingAudioRef.current.pause();
+          screamingAudioRef.current.currentTime = 0;
+        }
+
         navigate("/deadtext"); // 0.5초 후 /deadtext로 이동
       }, 500);
     }
@@ -344,7 +359,17 @@ const CCTVMonitor = () => {
         preload="auto"
       />
       {/* 화면조정 사운드 */}
-      <audio ref={beepAudioRef} src="/assets/sounds/beep.mp3" preload="auto" />
+      <audio
+        ref={beepAudioRef}
+        src="/assets/sounds/beep.mp3"
+        preload="auto"
+      />
+      {/* 비명 사운드 */}
+      <audio
+        ref={screamingAudioRef}
+        src="/assets/sounds/screaming.mp3"
+        preload="autio"
+      />
       {showWarning && (
         <div className="warning-banner">
           경고: 이상현상이 감지될 수 있습니다. 발견 즉시 보고하십시오.
