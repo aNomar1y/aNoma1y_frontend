@@ -1,11 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import TypingEffect from "../components/TypingEffect"; // TypingEffect 컴포넌트 가져오기
 import { useNavigate } from "react-router-dom";
 import "./DeadTextPage.css"; // DeadTextPage 전용 CSS 파일
 
 function DeadTextPage() {
   const navigate = useNavigate();
+  const beepAudioRef = useRef(null); // 삐
 
+  // 화면 렌더링 시 소리 재생
+  useEffect(() => {
+    if(beepAudioRef.current) {
+      beepAudioRef.current.loop = true;
+      beepAudioRef.current.volume = 0.3;
+      beepAudioRef.current.play().catch((err)=>{
+        console.error("Beep Sound Play Error:", err);
+      });
+    }
+    // 언마운트 시 소리 멈춤
+    return () => {
+      if(beepAudioRef.current) {
+        beepAudioRef.current.pause();
+        beepAudioRef.current.currentTime = 0;
+      }
+    };
+  }, []);
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/home"); // MainPage로 이동
@@ -16,6 +35,7 @@ function DeadTextPage() {
 
   return (
     <div className="deadtext-container">
+      <audio ref={beepAudioRef} src="/assets/sounds/beep.mp3" preload="auto" />
       <div className="deadtext-content">
         <TypingEffect
           lines={[

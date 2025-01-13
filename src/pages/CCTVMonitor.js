@@ -30,7 +30,7 @@ const CCTVMonitor = () => {
     },
     {
       id: 2,
-      name: "1층 매점",
+      name: "체력단련실",
       anomalies: ["2-1", "2-2", "2-3"],
       currentAnomaly: null,
     },
