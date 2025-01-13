@@ -12,10 +12,12 @@ class TypingEffect extends Component {
 
   componentDidMount() {
     this.typeNextCharacter(); // 첫 번째 줄의 첫 글자부터 출력 시작
+    if (this.props.onTypingStart) this.props.onTypingStart();
   }
 
   componentWillUnmount() {
     clearTimeout(this.timeout); // 예약된 타이머 정리
+    if(this.props.onTypingEnd) this.props.onTypingEnd();
   }
 
   typeNextCharacter = () => {
@@ -45,6 +47,9 @@ class TypingEffect extends Component {
 
       const randomDelay = this.getRandomDelay();
       this.timeout = setTimeout(this.typeNextCharacter, randomDelay);
+    } else {
+      // 타이핑 완료
+      if (this.props.onTypingEnd) this.props.onTypingEnd(); // 타이핑 종료 알림
     }
   };
 
