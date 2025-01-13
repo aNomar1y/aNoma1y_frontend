@@ -1,19 +1,23 @@
 .container {
-    background-color: #460000; /* Figma 배경 색상 */
-    font-family: 'Inter', sans-serif;
-    color: white;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    flex-direction: column; /* 세로 방향으로 배치 */
-    justify-content: center; /* 세로 가운데 정렬 */
-    align-items: center; /* 가로 가운데 정렬 */
-  }
+  background-color: #460000; /* Figma 배경 색상 */
+  font-family: "Inter", sans-serif;
+  color: white;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 배치 */
+  justify-content: center; /* 세로 가운데 정렬 */
+  align-items: center; /* 가로 가운데 정렬 */
+}
 /* 로고 스타일 */
 .container img:first-child {
   width: 500px; /* 로고 너비 */
   margin-bottom: 110px; /* 아래 여백 */
   opacity: 0.9;
+}
+
+.space-between {
+  height: 150px; /* 원하는 높이의 여백 */
 }
 
 /* 버튼 이미지 공통 스타일 */
@@ -62,10 +66,22 @@
   font-size: 50px; /* 아이콘 크기 */
   color: white; /* 기본 색상 */
   cursor: pointer; /* 클릭 가능한 포인터 */
-  opacity : 0.5;
+  opacity: 0.5;
   transition: opacity 0.4s ease; /* 색상 및 크기 변화 효과 */
 }
 
 .music-icon:hover {
   opacity: 0.9;
+}
+
+.main-noise-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 비율 유지하며 화면 꽉 채우기 */
+  opacity: 0.3; /* 반투명 효과 */
+  z-index: 2; /* 콘텐츠 위에 배치 */
+  pointer-events: none;
 }
