@@ -1,56 +1,128 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./RecordDetailPage.css";
+import axios from "axios";
+
+const fetchKakaoId = async (accessToken) => {
+  try {
+    const response = await axios.get("https://kapi.kakao.com/v2/user/me", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    const kakaoId = response.data.id; // 카카오 사용자 ID
+    console.log("Kakao ID:", kakaoId);
+    return kakaoId;
+  } catch (error) {
+    console.error("Failed to fetch Kakao ID:", error);
+    return null;
+  }
+};
+
+
 
 const RecordDetailPage = () => {
+
+  const [dataList, setDataList] = useState([]); // data 리스트를 저장할 상태
+
+  useEffect(() => {
+    // API 호출 함수
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/records/get-anomaly`); // API URL 변경
+        const result = await response.json();
+
+        if (result.success) {
+          setDataList(result.data); // data 리스트만 상태에 저장
+        } else {
+          console.error("API 호출이 성공하지 않았습니다.");
+        }
+      } catch (error) {
+        console.error("API 호출 중 에러 발생:", error);
+      }
+    };
+    fetchData();
+  }, []); // 컴포넌트가 처음 렌더링될 때 한 번만 호출
+
+  // 데이터를 그룹별로 묶는 함수
+  const groupImages = (dataList) => {
+    const grouped = {};
+    dataList.forEach((item) => {
+      const [group, id] = item.split("-");
+      if (!grouped[group]) grouped[group] = [];
+      grouped[group].push(item);
+    });
+    return Object.values(grouped);
+  };
+
+  const groupedData = groupImages(data);
+
+
   const { id } = useParams(); // 경로 파라미터 가져오기
   const navigate = useNavigate();
+
+
+// description 매핑 규칙
+const descriptionMapping = {
+  "1-1": "114호 실습실 - 1번 상태",
+  "1-2": "114호 실습실 - 2번 상태",
+  "2-1": "1층 복도 - 1번 상태",
+  "2-3": "1층 복도 - 3번 상태",
+  "3-1": "매점 - 1번 상태",
+  "3-4": "매점 - 4번 상태",
+  // 필요한 매핑 추가...
+};
+
+// description을 설정하는 함수
+const getDescription = (item) => {
+  return descriptionMapping[item] || `${item}에 대한 설명`; // 매핑이 없으면 기본값 사용
+};
+
+
 
   // 상세 기록 데이터
   const recordDetails = {
     room114: {
       title: "114호 실습실",
-      images: [
-        { src: "room114_1.jpg", description: "2024/12/26: 의자 위치 변경" },
-        { src: "room114_2.jpg", description: "2024/12/28: 화면이 켜져 있음" },
-      ],
+      images: (groupedData[0] || []).map((item) => ({
+        src: `anomaly-${item}.jpg`, // 파일명 변경
+        description: getDescription(item), // 기본 설명 설정
+      })),
     },
     hall: {
       title: "1층 복도",
-      images: [
-        { src: "hall_1.jpg", description: "2024/12/24: 빈 방에 불 켜짐" },
-        { src: "hall_2.jpg", description: "2024/12/25: 복도 끝 거수자 발견" },
-      ],
+      images: (groupedData[1] || []).map((item) => ({
+        src: `anomaly-${item}.jpg`, // 파일명 변경
+        description: getDescription(item), // 기본 설명 설정
+      })),
     },
     store: {
       title: "매점",
-      images: [
-        { src: "store_1.jpg", description: "2024/12/25: 매점 물건 사라짐" },
-        { src: "store_2.jpg", description: "2024/12/29: 매점 벽 구멍 발견" },
-      ],
+      images: (groupedData[2] || []).map((item) => ({
+        src: `anomaly-${item}.jpg`, // 파일명 변경
+        description: getDescription(item), // 기본 설명 설정
+      })),
     },
     room117: {
       title: "117호 다목적실",
-      images: [
-        { src: "room117_1.jpg", description: "2025/1/2: 의자가 뒤집힘" },
-        { src: "room117_2.jpg", description: "2024/12/30: 문 밖 거수자 발견" },
-      ],
+      images: (groupedData[3] || []).map((item) => ({
+        src: `anomaly-${item}.jpg`, // 파일명 변경
+        description: getDescription(item), // 기본 설명 설정
+      })),
     },
     window114: {
       title: "114호 외부 창문",
-      images: [
-        { src: "window114_1.jpg", description: "2025/1/3: 창문 밖 눈덩이" },
-      ],
+      images: (groupedData[4] || []).map((item) => ({
+        src: `anomaly-${item}.jpg`, // 파일명 변경
+        description: getDescription(item), // 기본 설명 설정
+      })),
     },
     room201: {
       title: "201호 강의실",
-      images: [
-        {
-          src: "room201_1.jpg",
-          description: "2024/12/30: 앉아있는 거수자 발견",
-        },
-        { src: "room201_2.jpg", description: "2025/1/1: CCTV 화면 안 보임" },
-      ],
+      images: (groupedData[5] || []).map((item) => ({
+        src: `anomaly-${item}.jpg`, // 파일명 변경
+        description: getDescription(item), // 기본 설명 설정
+      })),
     },
   };
 
