@@ -54,12 +54,14 @@ const CCTVMonitor = () => {
   const [showTemporaryImage, setShowTemporaryImage] = useState(false);
   const [remainingTime, setRemainingTime] = useState(180);
   const [gameTime, setGameTime] = useState(new Date("2025-01-15T04:00:00")); // 게임 시작 시간
+  const audioRef = useRef(null); // 클릭 소리를 제어하기 위한 ref
   const anomalyCount = cctvData.filter(
     (screen) => screen.currentAnomaly !== null
   ).length; // 이상현상 개수
 
   // 화면 전환: 다음 화면
   const handleNextScreen = () => {
+    playClickSound(); // 소리 재생
     setCurrentScreen((prevScreen) => {
       const newScreen = (prevScreen + 1) % cctvData.length;
       currentScreenRef.current = newScreen; // 최신 값 업데이트
@@ -67,13 +69,20 @@ const CCTVMonitor = () => {
     });
   };
   const handlePreviousScreen = () => {
+    playClickSound(); // 소리 재생
     setCurrentScreen((prevScreen) => {
       const newScreen = prevScreen === 0 ? cctvData.length - 1 : prevScreen - 1;
       currentScreenRef.current = newScreen; // 최신 값 업데이트
       return newScreen;
     });
   };
-
+  // 클릭 소리 재생 함수
+  const playClickSound = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0; // 소리를 처음부터 재생
+      audioRef.current.play();
+    }
+  };
   // 게임 속 시간 흐름 (4.09초마다 1분씩 증가)
   useEffect(() => {
     const timer = setInterval(() => {
@@ -242,6 +251,11 @@ const CCTVMonitor = () => {
 
   return (
     <div className="monitor-container">
+      <audio
+        ref={audioRef}
+        src="/assets/sounds/mouse-click-sound.mp3"
+        preload="auto"
+      />
       {showWarning && (
         <div className="warning-banner">
           경고: 이상현상이 감지될 수 있습니다. 발견 즉시 보고하십시오.
