@@ -55,6 +55,7 @@ const CCTVMonitor = () => {
   const [remainingTime, setRemainingTime] = useState(180);
   const [gameTime, setGameTime] = useState(new Date("2025-01-15T04:00:00")); // 게임 시작 시간
   const audioRef = useRef(null); // 클릭 소리를 제어하기 위한 ref
+  const beepAudioRef = useRef(null); // 화면조정 소리 제어를 위한 ref
   const anomalyCount = cctvData.filter(
     (screen) => screen.currentAnomaly !== null
   ).length; // 이상현상 개수
@@ -208,6 +209,33 @@ const CCTVMonitor = () => {
     return () => clearInterval(staticInterval);
   }, []);
 
+  // 화면 조정 중 삐- 사운드 재생
+  useEffect(() => {
+    if (cctvData[currentScreen].isAdjusting) {
+      // 삐- 사운드 재생
+      if (beepAudioRef.current) {
+        beepAudioRef.current.currentTime = 0;
+        beepAudioRef.current.play();
+      }
+
+      // 1초 후 사운드 정지
+      const timeout = setTimeout(() => {
+        if (beepAudioRef.current) {
+          beepAudioRef.current.pause();
+          beepAudioRef.current.currentTime = 0;
+        }
+      }, 1000);
+
+      return () => {
+        clearTimeout(timeout); // 정리
+        if(beepAudioRef.current) {
+          beepAudioRef.current.pause();
+          beepAudioRef.current.currentTime = 0;
+        }
+      }
+    }
+  }, [cctvData[currentScreen].isAdjusting]);
+
   // 경고 창 닫기
   const closeAlert = () => {
     setShowAlert(false); // 경고 창 닫기
@@ -251,9 +279,16 @@ const CCTVMonitor = () => {
 
   return (
     <div className="monitor-container">
+      {/* 클릭 사운드 */}
       <audio
         ref={audioRef}
         src="/assets/sounds/mouse-click-sound.mp3"
+        preload="auto"
+      />
+      {/* 화면조정 사운드 */}
+      <audio
+        ref={beepAudioRef}
+        src="/assets/sounds/beep.mp3"
         preload="auto"
       />
       {showWarning && (
