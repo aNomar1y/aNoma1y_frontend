@@ -62,6 +62,7 @@ const MainPage = ({ onPlayBgm }) => {
       fetchKakaoId(accessToken).then((kakaoId) => {
         if (kakaoId) {
           updateAccessTokenInDB(kakaoId, accessToken);
+          console.log('durlsms ehlwl', accessToken, kakaoId)
         }
       });
 

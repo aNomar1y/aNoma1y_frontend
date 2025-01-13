@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./CCTVMonitor.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const fetchKakaoId = async (accessToken) => {
   try {
@@ -314,7 +315,7 @@ const CCTVMonitor = () => {
     console.log("Reported Anomaly:", reportedAnomaly);
 
     // 서버로 데이터 전송 (예: POST 요청)
-    fetch("/records/save-anomaly", {
+    fetch(`${process.env.REACT_APP_BASE_URL}/records/save-anomaly`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
