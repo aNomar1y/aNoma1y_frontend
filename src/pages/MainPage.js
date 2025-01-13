@@ -47,11 +47,11 @@ const MainPage = ({ onPlayBgm }) => {
   const [userInfo, setUserInfo] = useState(null);
 
   const [bgmStarted, setBgmStarted] = useState(false);
-  
-    const handleStartBgm = () => {
-      setBgmStarted(true);
-      onPlayBgm(true); // 부모 컴포넌트(App.js)로 BGM 재생 요청
-    };
+
+  const handleStartBgm = () => {
+    setBgmStarted(true);
+    onPlayBgm(true); // 부모 컴포넌트(App.js)로 BGM 재생 요청
+  };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -119,15 +119,20 @@ const MainPage = ({ onPlayBgm }) => {
 
   return (
     <div className="container">
+      <video
+        src="/assets/overlay-video-3.mp4" // 동영상 경로
+        className="main-noise-video-overlay"
+        autoPlay
+        loop
+        muted
+      />
       <img src={logo} alt="로고" />
       {!bgmStarted && (
-        <span
-          className="music-icon"
-          onClick={handleStartBgm}
-        >
+        <span className="music-icon" onClick={handleStartBgm}>
           ♫
         </span>
       )}
+      <div className="space-between"></div>
       <img
         src={mission}
         alt="mission"

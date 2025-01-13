@@ -42,7 +42,7 @@ const CCTVMonitor = () => {
     {
       id: 4,
       name: "1층 복도",
-      anomalies: ["4-1", "4-2", "4-3"],
+      anomalies: ["4-1", "4-2", "4-3", "4-4"],
       currentAnomaly: null,
     },
     {
@@ -179,7 +179,7 @@ const CCTVMonitor = () => {
               : screen
           );
         });
-      }, 10000); // 10초 간격으로 이상현상 발생
+      }, 12000); // 12초 간격으로 이상현상 발생
     };
     // 25초 후 경고문 표시
     const warningTimeout = setTimeout(() => {
@@ -222,7 +222,7 @@ const CCTVMonitor = () => {
         setShowTemporaryImage(false); // 사진 표시 비활성화
 
         //비명소리 정지
-        if(screamingAudioRef.current) {
+        if (screamingAudioRef.current) {
           screamingAudioRef.current.pause();
           screamingAudioRef.current.currentTime = 0;
         }
@@ -359,11 +359,7 @@ const CCTVMonitor = () => {
         preload="auto"
       />
       {/* 화면조정 사운드 */}
-      <audio
-        ref={beepAudioRef}
-        src="/assets/sounds/beep.mp3"
-        preload="auto"
-      />
+      <audio ref={beepAudioRef} src="/assets/sounds/beep.mp3" preload="auto" />
       {/* 비명 사운드 */}
       <audio
         ref={screamingAudioRef}
