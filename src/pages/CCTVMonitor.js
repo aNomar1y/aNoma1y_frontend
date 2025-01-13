@@ -228,11 +228,11 @@ const CCTVMonitor = () => {
 
       return () => {
         clearTimeout(timeout); // 정리
-        if(beepAudioRef.current) {
+        if (beepAudioRef.current) {
           beepAudioRef.current.pause();
           beepAudioRef.current.currentTime = 0;
         }
-      }
+      };
     }
   }, [cctvData[currentScreen].isAdjusting]);
 
@@ -286,11 +286,7 @@ const CCTVMonitor = () => {
         preload="auto"
       />
       {/* 화면조정 사운드 */}
-      <audio
-        ref={beepAudioRef}
-        src="/assets/sounds/beep.mp3"
-        preload="auto"
-      />
+      <audio ref={beepAudioRef} src="/assets/sounds/beep.mp3" preload="auto" />
       {showWarning && (
         <div className="warning-banner">
           경고: 이상현상이 감지될 수 있습니다. 발견 즉시 보고하십시오.
@@ -309,6 +305,13 @@ const CCTVMonitor = () => {
         </div>
       )}
       <div className="cctv-screen">
+        <video
+          src="/assets/overlay-video-2-1.mp4" // 동영상 경로
+          className="noise-video-overlay"
+          autoPlay
+          loop
+          muted
+        />
         <div className="screen-header">
           <div className="header-left">
             <span className="recording-indicator"></span>
