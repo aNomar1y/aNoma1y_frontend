@@ -2,6 +2,23 @@ import React, { useState, useEffect, useRef } from "react";
 import "./CCTVMonitor.css";
 import { useNavigate } from "react-router-dom";
 
+const fetchKakaoId = async (accessToken) => {
+  try {
+    const response = await axios.get("https://kapi.kakao.com/v2/user/me", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    const kakaoId = response.data.id; // 카카오 사용자 ID
+    console.log("Kakao ID:", kakaoId);
+    return kakaoId;
+  } catch (error) {
+    console.error("Failed to fetch Kakao ID:", error);
+    return null;
+  }
+};
+
+
 const CCTVMonitor = () => {
   const [cctvData, setCctvData] = useState([
     {
@@ -242,7 +259,7 @@ const CCTVMonitor = () => {
   };
 
   // 이상현상 보고 기능
-  const reportAnomaly = () => {
+  const reportAnomaly = async () => {
     const screen = cctvData[currentScreen];
     if (!screen.currentAnomaly) {
       setWrongReports((prev) => prev + 1); // 잘못 보고한 횟수 증가
@@ -255,6 +272,47 @@ const CCTVMonitor = () => {
     const closeAlert = () => {
       setShowAlert(false); // 경고 창 닫기
     };
+
+    const accessToken = localStorage.getItem("access_token");
+    if (!accessToken) {
+      console.error("Access Token is missing!");
+      setAlertMessage("로그인 상태를 확인해주세요."); // 경고 메시지
+      setShowAlert(true); // 경고 창 표시
+      return;
+    }
+  
+    // Kakao ID 가져오기
+    const kakaoId = await fetchKakaoId(accessToken);
+    if (!kakaoId) {
+      setAlertMessage("Kakao ID를 가져오지 못했습니다."); // 경고 메시지
+      setShowAlert(true); // 경고 창 표시
+      return;
+    }
+
+      // 성공적으로 보고한 이상현상 정보
+    const reportedAnomaly = {
+      kakao_id: kakaoId,
+      cctv_id: screen.id,
+      anomaly_id: screen.currentAnomaly
+    };
+
+    console.log("Reported Anomaly:", reportedAnomaly);
+
+    // 서버로 데이터 전송 (예: POST 요청)
+    fetch("/records/save-anomaly", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reportedAnomaly),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Anomaly saved successfully:", data);
+    })
+    .catch((error) => {
+      console.error("Failed to save anomaly:", error);
+    });
 
     // 이상현상 보고 후 정상 화면으로 복귀
     setCctvData((prevData) =>
