@@ -1,12 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./WinPage.css"; // 스타일 파일 추가
 
 const WinPage = () => {
   const [showVideo, setShowVideo] = useState(false); // 동영상 표시 여부
   const navigate = useNavigate();
+  const location = useLocation();
   const audioRef = useRef(null);
   const glitchAudioRef = useRef(null);
+
+  // 전달된 데이터 추출
+  const { wrongReports, foundAnomalies } = location.state || {
+    wrongReports: 0,
+    foundAnomalies: 0,
+  };
 
   useEffect(() => {
     // 2초 후 동영상 재생
@@ -28,7 +35,7 @@ const WinPage = () => {
   // showVideo 상태에 따라 사운드 재생을 제어
   useEffect(() => {
     // 클리어 사운드 재생
-    if(!showVideo) {
+    if (!showVideo) {
       if (audioRef.current) {
         audioRef.current.loop = true;
         audioRef.current.volume = 1;
@@ -49,7 +56,7 @@ const WinPage = () => {
         glitchAudioRef.current.volume = 0.3;
         glitchAudioRef.current.play().catch((err) => {
           console.error("glitch sound play error:", err);
-        })
+        });
       }
       if (audioRef.current) {
         audioRef.current.pause();
@@ -57,16 +64,11 @@ const WinPage = () => {
       }
     }
   }, [showVideo]);
-  
 
   return (
     <div className="win-container">
       {/* 클리어 사운드 */}
-      <audio
-        ref={audioRef}
-        src="/assets/sounds/win-bell.mp3"
-        preload="auto"
-      />
+      <audio ref={audioRef} src="/assets/sounds/win-bell.mp3" preload="auto" />
       {/* 클리어 사운드 */}
       <audio
         ref={glitchAudioRef}
@@ -75,9 +77,13 @@ const WinPage = () => {
       />
       {/* 클리어 텍스트 */}
       {!showVideo && (
-        <h1 className="win-text">
-          수고하셨습니다. 근무시간 동안 N1을 무사히 관리하였습니다.
-        </h1>
+        <div>
+          <h1 className="win-text">
+            수고하셨습니다. 근무시간 동안 N1을 무사히 관리하였습니다.
+          </h1>
+          <p className="win-details">발견된 이상현상 개수: {foundAnomalies}</p>
+          <p className="win-details">잘못된 보고 횟수: {wrongReports}</p>
+        </div>
       )}
 
       {/* 지지직거리는 애니메이션 비디오 */}

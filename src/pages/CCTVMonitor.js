@@ -64,6 +64,7 @@ const CCTVMonitor = () => {
   const [showWarning, setShowWarning] = useState(false); // 상단 경고문 표시 상태
   const [anomalyActive, setAnomalyActive] = useState(false); // 이상현상 활성화 상태
   const [wrongReports, setWrongReports] = useState(0); // 잘못 보고한 횟수
+  const [foundAnomalies, setFoundAnomalies] = useState(0); // 보고한 이상현상 개수
   const [alertMessage, setAlertMessage] = useState(""); // 경고 메시지 상태
   const [showAlert, setShowAlert] = useState(false);
   const [isStatic, setIsStatic] = useState(false); // 지지직 효과 상태
@@ -75,6 +76,8 @@ const CCTVMonitor = () => {
   const beepAudioRef = useRef(null); // 화면조정 소리 제어를 위한 ref
   const screamingAudioRef = useRef(null); // 비명 소리 제어를 위한 ref
   const wrongAudioRef = useRef(null); // 잘못 보고한 소리 제어를 위한 ref
+  const wrongReportsRef = useRef(wrongReports); // 최신 wrongReports 상태 저장
+  const foundAnomaliesRef = useRef(foundAnomalies); // 최신 foundAnomalies 상태 저장
   const anomalyCount = cctvData.filter(
     (screen) => screen.currentAnomaly !== null
   ).length; // 이상현상 개수
@@ -103,16 +106,32 @@ const CCTVMonitor = () => {
       audioRef.current.play();
     }
   };
+
+  useEffect(() => {
+    wrongReportsRef.current = wrongReports;
+  }, [wrongReports]);
+  useEffect(() => {
+    foundAnomaliesRef.current = foundAnomalies;
+  }, [foundAnomalies]);
+
   // 게임 속 시간 흐름 (4.09초마다 1분씩 증가)
   useEffect(() => {
     const timer = setInterval(() => {
       setGameTime((prevTime) => new Date(prevTime.getTime() + 60 * 1000)); // 1분 추가
     }, 4090); // 4.09초마다 실행
 
-    // 3분 후 게임 종료 및 승리
     const victoryTimeout = setTimeout(() => {
-      navigate("/win");
-    }, 180000); // 3분 * 1.5초 = 4500ms
+      console.log("Navigating to /win with data:", {
+        wrongReports: wrongReportsRef.current,
+        foundAnomalies: foundAnomaliesRef.current,
+      });
+      navigate("/win", {
+        state: {
+          wrongReports: wrongReportsRef.current,
+          foundAnomalies: foundAnomaliesRef.current,
+        },
+      });
+    }, 180000); //3분 후 게임 승리
 
     return () => {
       clearInterval(timer); // 타이머 정리
@@ -269,18 +288,18 @@ const CCTVMonitor = () => {
   }, [cctvData[currentScreen].isAdjusting]);
 
   useEffect(() => {
-    if(showAlert) {
-      if(wrongAudioRef.current) {
+    if (showAlert) {
+      if (wrongAudioRef.current) {
         wrongAudioRef.current.loop = true;
         wrongAudioRef.current.play();
       }
     } else {
-      if(wrongAudioRef.current) {
+      if (wrongAudioRef.current) {
         wrongAudioRef.current.pause();
         wrongAudioRef.current.currentTime = 0;
       }
     }
-  },[showAlert]);
+  }, [showAlert]);
 
   // 경고 창 닫기
   const closeAlert = () => {
@@ -301,7 +320,6 @@ const CCTVMonitor = () => {
     const closeAlert = () => {
       setShowAlert(false); // 경고 창 닫기
     };
-
     const accessToken = localStorage.getItem("access_token");
     if (!accessToken) {
       console.error("Access Token is missing!");
@@ -309,7 +327,6 @@ const CCTVMonitor = () => {
       setShowAlert(true); // 경고 창 표시
       return;
     }
-
     // Kakao ID 가져오기
     const kakaoId = await fetchKakaoId(accessToken);
     if (!kakaoId) {
@@ -317,13 +334,14 @@ const CCTVMonitor = () => {
       setShowAlert(true); // 경고 창 표시
       return;
     }
-
     // 성공적으로 보고한 이상현상 정보
     const reportedAnomaly = {
       kakao_id: kakaoId,
       cctv_id: screen.id,
       anomaly_id: screen.currentAnomaly,
     };
+
+    setFoundAnomalies((prev) => prev + 1);
 
     console.log("Reported Anomaly:", reportedAnomaly);
 
