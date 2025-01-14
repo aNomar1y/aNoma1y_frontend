@@ -66,79 +66,71 @@ const RecordDetailPage = () => {
   const navigate = useNavigate();
 
 
-// description 매핑 규칙
-const descriptionMapping = {
-  "1-1": "CCTV실 - 오른쪽 손 포착",
-  "1-2": "CCTV실 - 보조 모니터 속 귀신 포착",
-  "1-3": "CCTV실 - 텀블러 사라짐",
-  "2-1": "체력단련실 - 점수판 변경",
-  "2-2": "체력단련실 - 탁구채 사라짐",
-  "2-3": "체력단련실 - 심판 등장",
-  "3-1": "창밖 - 1번 상태",
-  "3-1": "창밖 - 1번 상태",
-  "3-1": "창밖 - 1번 상태",
-  "4-1": "201호 강의실 - 시계 사라짐",
-  "4-2": "201호 강의실 - 엎드린 사람",
-  "4-3": "201호 강의실 - 모니터 켜짐",
-  "5-1": "117호 다목적실 - 시점 변경",
-  "5-2": "117호 다목적실 - 의자 정리",
-  "5-3": "117호 다목적실 - 서 있는 사람",
-  "6-1": "대피소 계단 - 쳐다보는 사람",
-  "6-2": "대피소 계단 - 문 열림",
-  "6-3": "대피소 계단 - 빗자루",
-  // 필요한 매핑 추가...
-};
+  // description 매핑 규칙
+  const descriptionMapping = {
+    "1-1": "CCTV실 - 오른쪽 손 포착",
+    "1-2": "CCTV실 - 보조 모니터 속 귀신 포착",
+    "1-3": "CCTV실 - 텀블러 사라짐",
+    "2-1": "체력단련실 - 점수판 변경",
+    "2-2": "체력단련실 - 탁구채 사라짐",
+    "2-3": "체력단련실 - 심판 등장",
+    "3-1": "창밖 - 1번 상태",
+    "3-2": "창밖 - 1번 상태",
+    "3-3": "창밖 - 1번 상태",
+    "4-1": "201호 강의실 - 시계 사라짐",
+    "4-2": "201호 강의실 - 엎드린 사람",
+    "4-3": "201호 강의실 - 모니터 켜짐",
+    "5-1": "117호 다목적실 - 시점 변경",
+    "5-2": "117호 다목적실 - 의자 정리",
+    "5-3": "117호 다목적실 - 서 있는 사람",
+    "6-1": "대피소 계단 - 쳐다보는 사람",
+    "6-2": "대피소 계단 - 문 열림",
+    "6-3": "대피소 계단 - 빗자루",
+    // 필요한 매핑 추가...
+  };
 
-// description을 설정하는 함수
-const getDescription = (item) => {
-  return descriptionMapping[item] || `${item}에 대한 설명`; // 매핑이 없으면 기본값 사용
-};
+  // description을 설정하는 함수
+  const getDescription = (item) => {
+    return descriptionMapping[item] || `${item}에 대한 설명`; // 매핑이 없으면 기본값 사용
+  };
 
-
+  // 6개 슬롯 데이터를 생성하는 함수
+  const generateSlots = (groupData) => {
+    const slots = Array(6).fill(null);
+    groupData.slice(0, 6).forEach((item, index) => {
+      slots[index] = {
+        src: `anomaly-${item}.jpg`,
+        description: getDescription(item),
+      };
+    });
+    return slots;
+  };
 
   // 상세 기록 데이터
   const recordDetails = {
     cctv_room: {
       title: "CCTV실",
-      images: (groupedData[0] || []).map((item) => ({
-        src: `anomaly-${item}.jpg`, // 파일명 변경
-        description: getDescription(item), // 기본 설명 설정
-      })),
+      images: generateSlots(groupedData[0] || []),
     },
     gym: {
       title: "체력단련실",
-      images: (groupedData[1] || []).map((item) => ({
-        src: `anomaly-${item}.jpg`, // 파일명 변경
-        description: getDescription(item), // 기본 설명 설정
-      })),
+      images: generateSlots(groupedData[1] || []),
     },
     outside: {
       title: "창밖",
-      images: (groupedData[2] || []).map((item) => ({
-        src: `anomaly-${item}.jpg`, // 파일명 변경
-        description: getDescription(item), // 기본 설명 설정
-      })),
+      images: generateSlots(groupedData[2] || []),
     },
     room201: {
       title: "201호 강의실",
-      images: (groupedData[3] || []).map((item) => ({
-        src: `anomaly-${item}.jpg`, // 파일명 변경
-        description: getDescription(item), // 기본 설명 설정
-      })),
+      images: generateSlots(groupedData[3] || []),
     },
     room117: {
       title: "117호 다목적실",
-      images: (groupedData[4] || []).map((item) => ({
-        src: `anomaly-${item}.jpg`, // 파일명 변경
-        description: getDescription(item), // 기본 설명 설정
-      })),
+      images: generateSlots(groupedData[4] || []),
     },
     stairs: {
       title: "대피소 계단",
-      images: (groupedData[5] || []).map((item) => ({
-        src: `anomaly-${item}.jpg`, // 파일명 변경
-        description: getDescription(item), // 기본 설명 설정
-      })),
+      images: generateSlots(groupedData[5] || []),
     },
   };
 
@@ -154,22 +146,28 @@ const getDescription = (item) => {
         <span className="header-title">{record.title}</span>
       </div>
 
-      {record.images.length > 0 ? (
-        <div className="image-grid">
-          {record.images.map((img, index) => (
-            <div key={index} className="image-item">
-              <img
-                src={`/assets/${img.src}`} // 이미지 경로
-                alt={img.description}
-                className="record-image"
-              />
-              <p className="image-description">{img.description}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="no-data">이미지가 없습니다.</p>
-      )}
+      <div className="image-grid">
+        {record.images.map((slot, index) => (
+          <div key={index} className="image-item">
+            {slot ? (
+              <>
+                <img
+                  src={`/assets/${slot.src}`}
+                  alt={slot.description}
+                  className="record-image"
+                />
+                <p className="image-description">{slot.description}</p>
+              </>
+            ) : (
+              <>
+                  <div className="empty-frame"></div>
+                  <p className="empty-text">기록되지 않은 이상 현상</p>
+                
+              </>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
