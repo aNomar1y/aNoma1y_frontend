@@ -1,4 +1,4 @@
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/d74c08b9-386f-4eac-9d61-86fa7c1238ed/image.png)
+![aa](https://github.com/user-attachments/assets/57175a22-6fe9-4911-9bb8-acad74ba4e80)
 
 # **N1 감시 시스템: 관리자 가이드**
 
