@@ -23,17 +23,18 @@ const accessToken = localStorage.getItem("access_token");
 
 // Kakao ID 가져오기
 const kakao_id = await fetchKakaoId(accessToken);
-console.log("kakao idi id: ", kakao_id)
+console.log("kakao idi id: ", kakao_id);
 
 const RecordDetailPage = () => {
-
   const [dataList, setDataList] = useState([]); // data 리스트를 저장할 상태
 
   useEffect(() => {
     // API 호출 함수
     const fetchData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/records/get-anomaly/${kakao_id}`); // API URL 변경
+        const response = await fetch(
+          `${process.env.REACT_APP_BASE_URL}/records/get-anomaly/${kakao_id}`
+        ); // API URL 변경
         const result = await response.json();
 
         if (result.success) {
@@ -61,10 +62,8 @@ const RecordDetailPage = () => {
 
   const groupedData = groupImages(dataList);
 
-
   const { id } = useParams(); // 경로 파라미터 가져오기
   const navigate = useNavigate();
-
 
   // description 매핑 규칙
   const descriptionMapping = {
@@ -161,12 +160,8 @@ const RecordDetailPage = () => {
               </div>
             ) : (
               <div>
-                  <img
-                    src={`/assets/default.jpg`}
-                    className="default-image"
-                  />
-                  <p className="image-description">기록되지 않은 이상 현상</p>
-                
+                <img src={`/assets/default.jpg`} className="default-image" />
+                <p className="image-description">기록되지 않은 이상 현상</p>
               </div>
             )}
           </div>

@@ -464,9 +464,9 @@ const CCTVMonitor = () => {
           </div>
           <div
             className="menu-item"
-            onClick={() => {
-              window.location.reload(); // 게임 재시작
-            }}
+            onClick={
+              () => navigate("/rule") // 게임 재시작
+            }
           >
             임무 재시작
           </div>
@@ -474,7 +474,7 @@ const CCTVMonitor = () => {
             className="menu-item"
             onClick={() => navigate("/home")} // 홈으로 돌아가기
           >
-            도망가기
+            임무 포기
           </div>
         </div>
       )}
