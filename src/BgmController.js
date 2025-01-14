@@ -12,7 +12,9 @@ const BgmController = ({ shouldPlay }) => {
 
     if (audioRef.current) {
       let newSrc;
-      if (currentPath === "/" || currentPath === "/home" || currentPath === "/rule" || currentPath === "/rulenext") {
+      if (currentPath === "/" || currentPath === "/home" ||
+        currentPath === "/rule" || currentPath === "/rulenext" ||
+        currentPath === "/record") {
         newSrc = bgmLoginMain;
       } else {
         newSrc = bgmOther;

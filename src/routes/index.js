@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import OAuthCallback from "../pages/OAuthCallback";
 import GameMainPage from "../pages/GameMainPage";
-import SettingsPage from "../pages/SettingsPage";
+import SettingsPage from "../components/SettingsPage";
 import RulePage from "../pages/RulePage";
 import RuleNextPage from "../pages/RuleNextPage";
 import MainPage from "../pages/MainPage";

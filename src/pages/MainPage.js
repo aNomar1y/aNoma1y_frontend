@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import "./MainPage.css"; // CSS 파일 가져오기
+import React, { useState, useEffect } from "react";
+import "./MainPage.css";
 import logo from "./assets/MainPage/aNoma1y.png";
 import mission from "./assets/MainPage/mission.png";
 import record from "./assets/MainPage/record.png";
@@ -7,6 +7,7 @@ import logout from "./assets/MainPage/logout.png";
 import delete1 from "./assets/MainPage/delete.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import SettingsPage from "../components/SettingsPage";
 
 async function updateAccessTokenInDB(kakaoId, accessToken) {
   try {
@@ -34,7 +35,7 @@ const fetchKakaoId = async (accessToken) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    const kakaoId = response.data.id; // 카카오 사용자 ID
+    const kakaoId = response.data.id;
     console.log("Kakao ID:", kakaoId);
     return kakaoId;
   } catch (error) {
@@ -44,14 +45,7 @@ const fetchKakaoId = async (accessToken) => {
 };
 
 const MainPage = ({ onPlayBgm }) => {
-  const [userInfo, setUserInfo] = useState(null);
-
-  const [bgmStarted, setBgmStarted] = useState(false);
-
-  const handleStartBgm = () => {
-    setBgmStarted(true);
-    onPlayBgm(true); // 부모 컴포넌트(App.js)로 BGM 재생 요청
-  };
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -62,16 +56,13 @@ const MainPage = ({ onPlayBgm }) => {
       fetchKakaoId(accessToken).then((kakaoId) => {
         if (kakaoId) {
           updateAccessTokenInDB(kakaoId, accessToken);
-          console.log('durlsms ehlwl', accessToken, kakaoId)
+          console.log("Access token saved:", accessToken, kakaoId);
         }
       });
 
-      // URL에서 access_token 제거
       queryParams.delete("access_token");
       const newUrl = `${window.location.pathname}`;
       window.history.replaceState({}, "", newUrl);
-
-      console.log("Access token saved:", accessToken);
     }
   }, []);
 
@@ -84,10 +75,10 @@ const MainPage = ({ onPlayBgm }) => {
       console.log("kakao_id: ", kakaoId);
       await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/kakao/logout`, {
         kakao_id: kakaoId,
-      }); // 로그아웃 API 호출
+      });
       alert("로그아웃 성공");
-      localStorage.removeItem("access_token"); // 토큰 제거
-      navigate("/"); // 로그아웃 후 홈으로 이동
+      localStorage.removeItem("access_token");
+      navigate("/");
     } catch (error) {
       console.error("로그아웃 실패:", error);
       alert("로그아웃 실패");
@@ -96,13 +87,8 @@ const MainPage = ({ onPlayBgm }) => {
 
   const handleDelete = async () => {
     try {
-      console.log("start");
       const accessToken = localStorage.getItem("access_token");
-      console.log("start", accessToken);
       const kakaoId = await fetchKakaoId(accessToken);
-      console.log("start", kakaoId);
-      console.log("accessToken: ", accessToken);
-      console.log("kakao_id: ", kakaoId);
       await axios.delete(
         `${process.env.REACT_APP_BASE_URL}/auth/kakao/delete`,
         {
@@ -110,28 +96,41 @@ const MainPage = ({ onPlayBgm }) => {
         }
       );
       alert("회원탈퇴 성공");
-      localStorage.removeItem("access_token"); // 토큰 제거
-      navigate("/"); // 로그아웃 후 홈으로 이동
+      localStorage.removeItem("access_token");
+      navigate("/");
     } catch (error) {
       console.error("회원탈퇴 실패:", error);
       alert("회원탈퇴 실패");
     }
   };
 
+  const handleToggleMusic = () => {
+    onPlayBgm((prev) => !prev); // 음악 상태 토글
+  };
+
   return (
     <div className="container">
       <video
-        src="/assets/overlay-video-3.mp4" // 동영상 경로
+        src="/assets/overlay-video-3.mp4"
         className="main-noise-video-overlay"
         autoPlay
         loop
         muted
       />
       <img src={logo} alt="로고" />
-      {!bgmStarted && (
-        <span className="music-icon" onClick={handleStartBgm}>
-          ♫
-        </span>
+      <button
+        className="settings-button"
+        onClick={() => setIsSettingsOpen(true)}
+      >
+        메뉴
+      </button>
+      {isSettingsOpen && (
+        <SettingsPage
+          onClose={() => setIsSettingsOpen(false)}
+          onLogout={handleLogout}
+          onDelete={handleDelete}
+          onToggleMusic={handleToggleMusic}
+        />
       )}
       <div className="space-between"></div>
       <img
@@ -145,18 +144,6 @@ const MainPage = ({ onPlayBgm }) => {
         alt="record"
         className="button-image"
         onClick={() => navigate("/record")}
-      />
-      <img
-        src={logout}
-        alt="logout"
-        className="logout-image"
-        onClick={handleLogout}
-      />
-      <img
-        src={delete1}
-        alt="delete"
-        className="delete-image"
-        onClick={handleDelete}
       />
     </div>
   );
