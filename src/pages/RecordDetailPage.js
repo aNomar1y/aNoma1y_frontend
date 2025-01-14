@@ -19,7 +19,11 @@ const fetchKakaoId = async (accessToken) => {
   }
 };
 
+const accessToken = localStorage.getItem("access_token");
 
+// Kakao ID 가져오기
+const kakao_id = await fetchKakaoId(accessToken);
+console.log("kakao idi id: ", kakao_id)
 
 const RecordDetailPage = () => {
 
@@ -29,7 +33,7 @@ const RecordDetailPage = () => {
     // API 호출 함수
     const fetchData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/records/get-anomaly`); // API URL 변경
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/records/get-anomaly/${kakao_id}`); // API URL 변경
         const result = await response.json();
 
         if (result.success) {
@@ -55,7 +59,7 @@ const RecordDetailPage = () => {
     return Object.values(grouped);
   };
 
-  const groupedData = groupImages(data);
+  const groupedData = groupImages(dataList);
 
 
   const { id } = useParams(); // 경로 파라미터 가져오기
@@ -64,12 +68,24 @@ const RecordDetailPage = () => {
 
 // description 매핑 규칙
 const descriptionMapping = {
-  "1-1": "114호 실습실 - 1번 상태",
-  "1-2": "114호 실습실 - 2번 상태",
-  "2-1": "1층 복도 - 1번 상태",
-  "2-3": "1층 복도 - 3번 상태",
-  "3-1": "매점 - 1번 상태",
-  "3-4": "매점 - 4번 상태",
+  "1-1": "CCTV실 - 오른쪽 손 포착",
+  "1-2": "CCTV실 - 보조 모니터 속 귀신 포착",
+  "1-3": "CCTV실 - 텀블러 사라짐",
+  "2-1": "체력단련실 - 점수판 변경",
+  "2-2": "체력단련실 - 탁구채 사라짐",
+  "2-3": "체력단련실 - 심판 등장",
+  "3-1": "창밖 - 1번 상태",
+  "3-1": "창밖 - 1번 상태",
+  "3-1": "창밖 - 1번 상태",
+  "4-1": "201호 강의실 - 시계 사라짐",
+  "4-2": "201호 강의실 - 엎드린 사람",
+  "4-3": "201호 강의실 - 모니터 켜짐",
+  "5-1": "117호 다목적실 - 시점 변경",
+  "5-2": "117호 다목적실 - 의자 정리",
+  "5-3": "117호 다목적실 - 서 있는 사람",
+  "6-1": "대피소 계단 - 쳐다보는 사람",
+  "6-2": "대피소 계단 - 문 열림",
+  "6-3": "대피소 계단 - 빗자루",
   // 필요한 매핑 추가...
 };
 
