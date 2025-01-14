@@ -56,7 +56,7 @@
 
 .rback-button:hover,
 .rnext-button:hover {
-  color: #ffd700; /* 호버 시 화살표 색상 변경 */
+  color: rgba(174, 174, 174, 0.5); /* 호버 시 화살표 색상 변경 */
 }
 /* 버튼 크기와 정렬 */
 .rback-button {

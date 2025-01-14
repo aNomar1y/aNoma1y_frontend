@@ -41,7 +41,7 @@
 }
 
 .rule-next-button:hover {
-  color: #ffd700; /* 호버 시 버튼 색 변경 */
+  color: rgba(174, 174, 174, 0.5); /* 호버 시 버튼 색 변경 */
 }
 
 /* 홈 아이콘 스타일 */
@@ -56,5 +56,5 @@
 }
 
 .home-icon:hover {
-  color: #ffd700; /* 호버 시 색상 변경 */
+  color: rgba(174, 174, 174, 0.5); /* 호버 시 색상 변경 */
 }
