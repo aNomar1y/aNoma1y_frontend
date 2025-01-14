@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./WinPage.css"; // 스타일 파일 추가
 
 const WinPage = () => {
   const [showVideo, setShowVideo] = useState(false); // 동영상 표시 여부
   const navigate = useNavigate();
+  const audioRef = useRef(null);
 
   useEffect(() => {
     // 2초 후 동영상 재생
     const videoTimer = setTimeout(() => {
       setShowVideo(true);
-    }, 2000);
+    }, 5000);
 
     // 4초 후 홈으로 이동
     const homeTimer = setTimeout(() => {
       navigate("/home");
-    }, 4000);
+    }, 7000);
 
     return () => {
       clearTimeout(videoTimer);
@@ -23,8 +24,32 @@ const WinPage = () => {
     };
   }, [navigate]);
 
+  // showVideo 상태에 따라 사운드 재생을 제어
+  useEffect(() => {
+    if(!showVideo) {
+      if (audioRef.current) {
+        audioRef.current.loop = true;
+        audioRef.current.volume = 0.5;
+        audioRef.current.play().catch((err) => {
+          console.error("audio play error:", err);
+        });
+      }
+    } else {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    }
+  }, [showVideo]);
+
   return (
     <div className="win-container">
+      {/* 클리어 사운드 */}
+      <audio
+        ref={audioRef}
+        src="/assets/sounds/win-bell.mp3"
+        preload="auto"
+      />
       {/* 클리어 텍스트 */}
       {!showVideo && (
         <h1 className="win-text">
