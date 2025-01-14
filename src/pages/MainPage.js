@@ -3,11 +3,11 @@ import "./MainPage.css";
 import logo from "./assets/MainPage/aNoma1y.png";
 import mission from "./assets/MainPage/mission.png";
 import record from "./assets/MainPage/record.png";
-import logout from "./assets/MainPage/logout.png";
-import delete1 from "./assets/MainPage/delete.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SettingsPage from "../components/SettingsPage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 async function updateAccessTokenInDB(kakaoId, accessToken) {
   try {
@@ -118,12 +118,12 @@ const MainPage = ({ onPlayBgm }) => {
         muted
       />
       <img src={logo} alt="로고" />
-      <button
-        className="settings-button"
+      {/* 톱니바퀴 버튼 */}
+      <FontAwesomeIcon
+        icon={faCog}
+        className="settings-icon"
         onClick={() => setIsSettingsOpen(true)}
-      >
-        메뉴
-      </button>
+      />
       {isSettingsOpen && (
         <SettingsPage
           onClose={() => setIsSettingsOpen(false)}

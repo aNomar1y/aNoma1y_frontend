@@ -85,3 +85,19 @@
   z-index: 2; /* 콘텐츠 위에 배치 */
   pointer-events: none;
 }
+
+.settings-icon {
+  position: absolute;
+  top: 30px; /* 우측 상단으로 이동 */
+  right: 20px; /* 우측 정렬 */
+  font-size: 36px; /* 사이즈 키우기 */
+  color: white;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: transform 0.2s, opacity 0.4s ease; /* 색상 전환 효과 추가 */
+}
+
+.settings-icon:hover {
+  transform: rotate(50deg); /* 돌아가는 이펙트 유지 */
+  opacity: 0.9; /* 호버 시 색상 변경 (예: 노란색) */
+}
