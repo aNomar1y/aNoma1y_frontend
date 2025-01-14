@@ -150,20 +150,20 @@ const RecordDetailPage = () => {
         {record.images.map((slot, index) => (
           <div key={index} className="image-item">
             {slot ? (
-              <>
+              <div>
                 <img
                   src={`/assets/${slot.src}`}
                   alt={slot.description}
                   className="record-image"
                 />
                 <p className="image-description">{slot.description}</p>
-              </>
+              </div>
             ) : (
-              <>
+              <div>
                   <div className="empty-frame"></div>
                   <p className="empty-text">기록되지 않은 이상 현상</p>
                 
-              </>
+              </div>
             )}
           </div>
         ))}
