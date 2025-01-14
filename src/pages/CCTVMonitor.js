@@ -78,6 +78,7 @@ const CCTVMonitor = () => {
   const wrongAudioRef = useRef(null); // 잘못 보고한 소리 제어를 위한 ref
   const wrongReportsRef = useRef(wrongReports); // 최신 wrongReports 상태 저장
   const foundAnomaliesRef = useRef(foundAnomalies); // 최신 foundAnomalies 상태 저장
+  const [isPaused, setIsPaused] = useState(false); // 일시정지 상태
   const anomalyCount = cctvData.filter(
     (screen) => screen.currentAnomaly !== null
   ).length; // 이상현상 개수
@@ -116,6 +117,7 @@ const CCTVMonitor = () => {
 
   // 게임 속 시간 흐름 (4.09초마다 1분씩 증가)
   useEffect(() => {
+    if (isPaused) return;
     const timer = setInterval(() => {
       setGameTime((prevTime) => new Date(prevTime.getTime() + 60 * 1000)); // 1분 추가
     }, 4090); // 4.09초마다 실행
@@ -137,7 +139,20 @@ const CCTVMonitor = () => {
       clearInterval(timer); // 타이머 정리
       clearTimeout(victoryTimeout); // 승리 타임아웃 정리
     };
-  }, [navigate]);
+  }, [navigate, isPaused]);
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "p" || event.key === "P" || event.key === "ㅔ") {
+        setIsPaused((prev) => !prev); // 일시정지 상태 토글
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
 
   // 날짜와 시간 포맷팅
   const formatDateTime = (date) => {
@@ -152,6 +167,7 @@ const CCTVMonitor = () => {
 
   // 이상현상 발생 로직
   useEffect(() => {
+    if (isPaused) return;
     let interval;
     const startAnomalies = () => {
       interval = setInterval(() => {
@@ -212,7 +228,7 @@ const CCTVMonitor = () => {
               : screen
           );
         });
-      }, 15000); // 12초 간격으로 이상현상 발생
+      }, 15000); // 15초 간격으로 이상현상 발생
     };
     // 25초 후 경고문 표시
     const warningTimeout = setTimeout(() => {
@@ -233,7 +249,7 @@ const CCTVMonitor = () => {
       clearTimeout(anomalyTimeout);
       clearInterval(interval);
     };
-  }, []);
+  }, [isPaused]);
 
   //게임 오버 기능
   useEffect(() => {
@@ -435,6 +451,34 @@ const CCTVMonitor = () => {
           </div>
         </div>
       )}
+      {isPaused && (
+        <div className="pause-overlay">
+          <h1>일시정지</h1>
+          <div
+            className="menu-item"
+            onClick={() => {
+              setIsPaused(false); // 게임 재개
+            }}
+          >
+            임무 재개
+          </div>
+          <div
+            className="menu-item"
+            onClick={() => {
+              window.location.reload(); // 게임 재시작
+            }}
+          >
+            임무 재시작
+          </div>
+          <div
+            className="menu-item"
+            onClick={() => navigate("/home")} // 홈으로 돌아가기
+          >
+            도망가기
+          </div>
+        </div>
+      )}
+
       <div className="cctv-screen">
         <video
           src="/assets/overlay-video-2-1.mp4" // 동영상 경로
