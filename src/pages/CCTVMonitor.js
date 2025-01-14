@@ -172,8 +172,15 @@ const CCTVMonitor = () => {
               Math.floor(Math.random() * availableScreens.length)
             ];
 
+          // 이전에 발생했던 이상현상을 추적 (새 필드 사용)
+          if (!randomScreen.triggeredAnomalies) {
+            randomScreen.triggeredAnomalies = [];
+          }
+
           const availableAnomalies = randomScreen.anomalies.filter(
-            (anomaly) => anomaly !== randomScreen.currentAnomaly
+            (anomaly) =>
+              anomaly !== randomScreen.currentAnomaly &&
+              !randomScreen.triggeredAnomalies.includes(anomaly)
           );
 
           if (availableAnomalies.length === 0) {
@@ -194,11 +201,18 @@ const CCTVMonitor = () => {
 
           return prevData.map((screen) =>
             screen.id === randomScreen.id
-              ? { ...screen, currentAnomaly: newAnomaly }
+              ? {
+                  ...screen,
+                  currentAnomaly: newAnomaly,
+                  triggeredAnomalies: [
+                    ...(screen.triggeredAnomalies || []),
+                    newAnomaly,
+                  ],
+                }
               : screen
           );
         });
-      }, 12000); // 12초 간격으로 이상현상 발생
+      }, 15000); // 12초 간격으로 이상현상 발생
     };
     // 25초 후 경고문 표시
     const warningTimeout = setTimeout(() => {
