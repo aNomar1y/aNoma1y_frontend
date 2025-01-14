@@ -402,3 +402,37 @@ body {
 .alert-content button:hover {
   background: #ffcccb;
 }
+/* 반투명 오버레이 배경 */
+.pause-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8); /* 반투명 검은색 배경 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 가장 위에 표시되도록 설정 */
+  color: white;
+  font-family: "Arial", sans-serif; /* 원하는 폰트 적용 */
+}
+
+/* 제목 스타일 */
+.pause-overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+}
+
+/* 메뉴 텍스트 스타일 */
+.pause-overlay .menu-item {
+  font-size: 1.8rem;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.pause-overlay .menu-item:hover {
+  color: #5a5a5a; /* 호버 시 색상 변경 (금색) */
+}
