@@ -6,7 +6,7 @@ import { AiFillHome } from "react-icons/ai"; // 홈 아이콘
 
 function RulePage() {
   const navigate = useNavigate();
-  const typingAudioRef = React.useRef(null);
+  const typingAudioRef = useRef(null);
   const [isTyping, setIsTyping] = useState(false);
 
   const handleNext = () => {
