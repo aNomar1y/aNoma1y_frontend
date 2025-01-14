@@ -160,8 +160,11 @@ const RecordDetailPage = () => {
               </div>
             ) : (
               <div>
-                  <div className="empty-frame"></div>
-                  <p className="empty-text">기록되지 않은 이상 현상</p>
+                  <img
+                    src={`/assets/default.jpg`}
+                    className="default-image"
+                  />
+                  <p className="image-description">기록되지 않은 이상 현상</p>
                 
               </div>
             )}
