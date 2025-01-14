@@ -74,6 +74,7 @@ const CCTVMonitor = () => {
   const audioRef = useRef(null); // 클릭 소리를 제어하기 위한 ref
   const beepAudioRef = useRef(null); // 화면조정 소리 제어를 위한 ref
   const screamingAudioRef = useRef(null); // 비명 소리 제어를 위한 ref
+  const wrongAudioRef = useRef(null); // 잘못 보고한 소리 제어를 위한 ref
   const anomalyCount = cctvData.filter(
     (screen) => screen.currentAnomaly !== null
   ).length; // 이상현상 개수
@@ -267,6 +268,20 @@ const CCTVMonitor = () => {
     }
   }, [cctvData[currentScreen].isAdjusting]);
 
+  useEffect(() => {
+    if(showAlert) {
+      if(wrongAudioRef.current) {
+        wrongAudioRef.current.loop = true;
+        wrongAudioRef.current.play();
+      }
+    } else {
+      if(wrongAudioRef.current) {
+        wrongAudioRef.current.pause();
+        wrongAudioRef.current.currentTime = 0;
+      }
+    }
+  },[showAlert]);
+
   // 경고 창 닫기
   const closeAlert = () => {
     setShowAlert(false); // 경고 창 닫기
@@ -355,6 +370,12 @@ const CCTVMonitor = () => {
       <audio
         ref={audioRef}
         src="/assets/sounds/mouse-click-sound.mp3"
+        preload="auto"
+      />
+      {/* 클릭 사운드 */}
+      <audio
+        ref={wrongAudioRef}
+        src="/assets/sounds/wrong-report.mp3"
         preload="auto"
       />
       {/* 화면조정 사운드 */}
