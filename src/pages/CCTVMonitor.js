@@ -442,6 +442,23 @@ const CCTVMonitor = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [cctvData, currentScreen]);
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Enter") {
+        closeAlert();
+      }
+    };
+
+    // 키보드 이벤트 리스너 추가
+    if (showAlert) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    // 컴포넌트 언마운트 또는 `showAlert` 변경 시 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showAlert, closeAlert]);
   return (
     <div className="monitor-container">
       {/* 클릭 사운드 */}
@@ -481,6 +498,7 @@ const CCTVMonitor = () => {
           </div>
         </div>
       )}
+      {/*일시정지*/}
       {isPaused && (
         <div className="pause-overlay">
           <h1>일시정지</h1>
