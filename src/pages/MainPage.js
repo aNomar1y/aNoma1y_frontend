@@ -8,8 +8,7 @@ import axios from "axios";
 import SettingsPage from "../components/SettingsPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
-
-  
+import { useBgm } from "../BgmContext"; // 전역 BGM 상태를 사용하기 위해 추가
 
 async function updateAccessTokenInDB(kakaoId, accessToken) {
   try {
@@ -47,8 +46,11 @@ const fetchKakaoId = async (accessToken) => {
 };
 
 const MainPage = ({ onPlayBgm }) => {
-
+  const navigate = useNavigate();
   const audioRef = useRef(null); // 클릭 소리를 제어하기 위한 ref
+  const { setCurrentBgm, setIsPlaying } = useBgm(); // 전역 BGM 상태 관리
+
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const playClickSound = () => {
     if (audioRef.current && document.body.contains(audioRef.current)) {
@@ -65,11 +67,10 @@ const MainPage = ({ onPlayBgm }) => {
     }
   };
 
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-
   useEffect(() => {
-
     console.log("Audio Ref:", audioRef.current);
+
+    // 카카오 로그인 토큰 처리
     const queryParams = new URLSearchParams(window.location.search);
     const accessToken = queryParams.get("access_token");
 
@@ -86,9 +87,11 @@ const MainPage = ({ onPlayBgm }) => {
       const newUrl = `${window.location.pathname}`;
       window.history.replaceState({}, "", newUrl);
     }
-  }, []);
 
-  const navigate = useNavigate();
+    // MainPage 전용 BGM 설정 및 재생
+    setCurrentBgm("/assets/sounds/lobby.m4a"); // MainPage 전용 BGM
+    setIsPlaying(true); // BGM 재생
+  }, [setCurrentBgm, setIsPlaying]);
 
   const handleLogout = async () => {
     try {
@@ -131,10 +134,7 @@ const MainPage = ({ onPlayBgm }) => {
   };
 
   return (
-
     <div className="container">
-
-      
       <video
         src="/assets/overlay-video-3.mp4"
         className="main-noise-video-overlay"

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./SettingsPage.css";
+import { useBgm } from "../BgmContext"; // 전역 BGM 상태 사용
 
-const SettingsPage = ({ onClose, onLogout, onDelete, onToggleMusic }) => {
-  const [isMusicOn, setIsMusicOn] = useState(false); // 음악 상태 관리
+const SettingsPage = ({ onClose, onLogout, onDelete }) => {
+  const { isPlaying, setIsPlaying } = useBgm(); // 전역 BGM 상태 참조 및 업데이트
 
   const handleMusicToggle = () => {
-    setIsMusicOn((prevState) => !prevState); // 상태 전환
-    onToggleMusic(); // 상위 컴포넌트로 상태 전달
+    setIsPlaying((prev) => !prev); // 전역 상태에서 음악 상태 전환
   };
 
   return (
@@ -29,8 +29,8 @@ const SettingsPage = ({ onClose, onLogout, onDelete, onToggleMusic }) => {
           회원탈퇴
         </span>
 
-        {/* 음악 컨트롤: 상태에 따라 버튼 변경 */}
-        {isMusicOn ? (
+        {/* 음악 컨트롤: 전역 상태 기반으로 UI 변경 */}
+        {isPlaying ? (
           <button className="music-button" onClick={handleMusicToggle}>
             음악 끄기
           </button>
