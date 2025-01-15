@@ -37,7 +37,7 @@ body {
   font-size: 24px;
   margin-top: 6px;
   align-items: center;
-  padding-right: 10px; /* 오른쪽 여백을 20px로 증가 */
+
   color: rgb(0, 200, 0);
   z-index: 10;
   margin-bottom: 10px;
@@ -431,7 +431,7 @@ body {
 /* 메뉴 텍스트 스타일 */
 .pause-overlay .menu-item {
   font-size: 1.8rem;
-  margin: 10px 0;
+  margin: 30px 0;
   cursor: pointer;
   transition: color 0.3s ease;
 }
