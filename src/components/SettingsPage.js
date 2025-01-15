@@ -1,23 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SettingsPage.css";
 
 const SettingsPage = ({ onClose, onLogout, onDelete, onToggleMusic }) => {
+  const [isMusicOn, setIsMusicOn] = useState(false); // 음악 상태 관리
+
+  const handleMusicToggle = () => {
+    setIsMusicOn((prevState) => !prevState); // 상태 전환
+    onToggleMusic(); // 상위 컴포넌트로 상태 전달
+  };
+
   return (
     <div className="popup-overlay">
       <div className="popup-content">
-      {/* 닫기 버튼 */}
-      <button className="popup-close" onClick={onClose}>X</button>
-      
-      <h2>관리 메뉴</h2>
+        {/* 닫기 버튼 */}
+        <button className="popup-close" onClick={onClose}>
+          X
+        </button>
 
-      {/* 로그아웃 및 회원탈퇴: 텍스트 형태 */}
-      <span className="interactive-text" onClick={onLogout}>로그아웃</span>
-      <span className="interactive-text" onClick={onDelete}>회원탈퇴</span>
+        <h2>관리 메뉴</h2>
 
-      {/* 음악 컨트롤: 버튼 형태 */}
-      <button className="music-button" onClick={onToggleMusic}>
-        음악 컨트롤
-      </button>
+        {/* 로그아웃: 텍스트 형태 */}
+        <span className="interactive-text" onClick={onLogout}>
+          로그아웃
+        </span>
+
+        {/* 회원탈퇴: 텍스트 형태 */}
+        <span className="interactive-text" onClick={onDelete}>
+          회원탈퇴
+        </span>
+
+        {/* 음악 컨트롤: 상태에 따라 버튼 변경 */}
+        {isMusicOn ? (
+          <button className="music-button" onClick={handleMusicToggle}>
+            음악 끄기
+          </button>
+        ) : (
+          <button className="music-button" onClick={handleMusicToggle}>
+            음악 켜기
+          </button>
+        )}
       </div>
     </div>
   );
