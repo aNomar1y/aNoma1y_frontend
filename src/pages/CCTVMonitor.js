@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./CCTVMonitor.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const fetchKakaoId = async (accessToken) => {
   try {
@@ -525,10 +526,10 @@ const CCTVMonitor = () => {
         )}
 
         <button className="arrow left-arrow" onClick={handlePreviousScreen}>
-          &#9664;
+          <FiChevronLeft />
         </button>
         <button className="arrow right-arrow" onClick={handleNextScreen}>
-          &#9654;
+          <FiChevronRight />
         </button>
       </div>
       <button className="report-button" onClick={reportAnomaly}>
