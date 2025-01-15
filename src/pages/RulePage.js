@@ -57,6 +57,7 @@ function RulePage() {
 
   return (
     <div className="rule-container">
+      <audio ref={audioRef} src="/assets/sounds/mouse-click-sound.mp3" preload="auto" />
       {/* 타이핑 사운드 */}
       <audio
         ref={typingAudioRef}
