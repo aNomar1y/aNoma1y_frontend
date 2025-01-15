@@ -65,7 +65,7 @@
 
   /* 글씨만 호버 효과 */
 .record-text {
-    font-weight: 530; /* Semi Bold */
+    font-weight: 600; /* Semi Bold */
     opacity: 0.5;
     transition: opacity 0.4s ease; /* 글자색 변경 애니메이션 */
 }
