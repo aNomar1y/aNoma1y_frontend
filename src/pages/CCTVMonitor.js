@@ -101,6 +101,22 @@ const CCTVMonitor = () => {
       return newScreen;
     });
   };
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowLeft") {
+        handlePreviousScreen();
+      } else if (event.key === "ArrowRight") {
+        handleNextScreen();
+      }
+    };
+    // 키보드 이벤트 리스너 추가
+    window.addEventListener("keydown", handleKeyDown);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
   // 클릭 소리 재생 함수
   const playClickSound = () => {
     if (audioRef.current) {
@@ -412,7 +428,20 @@ const CCTVMonitor = () => {
       );
     }, 1000);
   };
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.code === "Space") {
+        event.preventDefault(); // 기본 스크롤 방지
+        reportAnomaly();
+      }
+    };
 
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [cctvData, currentScreen]);
   return (
     <div className="monitor-container">
       {/* 클릭 사운드 */}
@@ -524,7 +553,6 @@ const CCTVMonitor = () => {
             className={`cctv-image ${isStatic ? "static-effect" : ""}`}
           />
         )}
-
         <button className="arrow left-arrow" onClick={handlePreviousScreen}>
           <FiChevronLeft />
         </button>
