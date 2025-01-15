@@ -398,6 +398,7 @@ body {
   padding: 8px 16px;
   font-size: 14px;
   font-family: "CustomFont1", Arial, sans-serif; /* 폰트 적용 */
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
