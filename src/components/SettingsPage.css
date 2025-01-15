@@ -1,44 +1,103 @@
+/* 팝업 전체 배경 */
 .popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7); /* 어두운 반투명 배경 */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out; /* 부드러운 팝업 등장 */
   }
   
+  /* 팝업 컨텐츠 */
   .popup-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    position: relative;
+    background: rgba(0, 0, 0, 0.9); /* 검은 배경 */
+    padding: 30px;
+    border-radius: 10px; /* 부드러운 모서리 */
+    width: 400px; /* 적당한 폭 */
     text-align: center;
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1); /* 흰색 그림자 */
+    animation: scaleIn 0.3s ease-in-out;
+    position: relative; /* 닫기 버튼 위치 조정 */
   }
   
+  /* 닫기 버튼 */
   .popup-close {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: transparent;
     border: none;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
     cursor: pointer;
+    color: white; /* 흰색 텍스트 */
+    background: none; /* 배경 제거 */
+    transition: transform 0.2s, color 0.3s;
   }
   
-  .open-settings-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 10px;
-    background: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 5px;
+  .popup-close:hover {
+    color: #ff5757; /* 닫기 버튼 호버 색상 */
+    transform: scale(1.2); /* 확대 효과 */
+  }
+  
+  /* 상호작용 가능한 텍스트 */
+  .popup-content .interactive-text {
+    display: block;
+    margin: 20px 0; /* 세로 간격 */
+    font-size: 18px;
+    font-weight: bold;
+    color: white; /* 흰색 텍스트 */
+    text-decoration: none;
     cursor: pointer;
+    transition: color 0.3s, text-decoration 0.3s;
+  }
+  
+  .popup-content .interactive-text:hover {
+    color: #ffcccc; /* 호버 시 연한 빨간색 */
+    text-decoration: underline; /* 밑줄 강조 */
+  }
+  
+  /* 음악 컨트롤 버튼 */
+  .popup-content .music-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: #333; /* 어두운 버튼 */
+    border: none;
+    border-radius: 5px; /* 부드러운 모서리 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* 버튼 그림자 */
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .popup-content .music-button:hover {
+    background: #444; /* 호버 시 색상 변화 */
+    transform: translateY(-3px); /* 살짝 위로 이동 */
+  }
+  
+  /* 애니메이션 */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.8);
+    }
+    to {
+      transform: scale(1);
+    }
   }
   

@@ -88,8 +88,8 @@
 
 .settings-icon {
   position: absolute;
-  top: 30px; /* 우측 상단으로 이동 */
-  right: 20px; /* 우측 정렬 */
+  top: 40px; /* 우측 상단으로 이동 */
+  right: 30px; /* 우측 정렬 */
   font-size: 36px; /* 사이즈 키우기 */
   color: white;
   cursor: pointer;
