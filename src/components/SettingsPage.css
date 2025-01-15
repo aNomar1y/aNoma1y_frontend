@@ -14,7 +14,7 @@
 }
 
 /* 팝업 컨텐츠 */
-.popup-content {
+.popup-content{
   background: rgba(0, 0, 0, 0.9);
   padding: 30px;
   border-radius: 10px;
@@ -23,6 +23,7 @@
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
   animation: scaleIn 0.3s ease-in-out;
   position: relative;
+  margin-bottom: 30px;
 }
 
 /* 닫기 버튼 */
@@ -66,7 +67,7 @@
 /* 음악 컨트롤 버튼 */
 .popup-content .music-button {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 5px;
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
