@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./MainPage.css";
 import logo from "./assets/MainPage/aNoma1y.png";
 import mission from "./assets/MainPage/mission.png";
@@ -8,6 +8,8 @@ import axios from "axios";
 import SettingsPage from "../components/SettingsPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
+
+  
 
 async function updateAccessTokenInDB(kakaoId, accessToken) {
   try {
@@ -45,9 +47,29 @@ const fetchKakaoId = async (accessToken) => {
 };
 
 const MainPage = ({ onPlayBgm }) => {
+
+  const audioRef = useRef(null); // 클릭 소리를 제어하기 위한 ref
+
+  const playClickSound = () => {
+    if (audioRef.current && document.body.contains(audioRef.current)) {
+      console.log("Playing click sound...");
+      audioRef.current.currentTime = 0; // 처음부터 재생
+      audioRef.current
+        .play()
+        .then(() => console.log("Click sound played successfully."))
+        .catch((error) => {
+          console.error("Error playing click sound:", error);
+        });
+    } else {
+      console.error("Audio element is not available or removed from the document.");
+    }
+  };
+
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   useEffect(() => {
+
+    console.log("Audio Ref:", audioRef.current);
     const queryParams = new URLSearchParams(window.location.search);
     const accessToken = queryParams.get("access_token");
 
@@ -109,7 +131,10 @@ const MainPage = ({ onPlayBgm }) => {
   };
 
   return (
+
     <div className="container">
+
+      
       <video
         src="/assets/overlay-video-3.mp4"
         className="main-noise-video-overlay"
@@ -122,28 +147,41 @@ const MainPage = ({ onPlayBgm }) => {
       <FontAwesomeIcon
         icon={faCog}
         className="settings-icon"
-        onClick={() => setIsSettingsOpen(true)}
+        onClick={() => {
+          playClickSound(); // 클릭 소리 재생
+          setIsSettingsOpen(true);
+        }}
       />
       {isSettingsOpen && (
         <SettingsPage
-          onClose={() => setIsSettingsOpen(false)}
+          onClose={() => {
+            playClickSound(); // 클릭 소리 재생
+            setIsSettingsOpen(false);
+          }}
           onLogout={handleLogout}
           onDelete={handleDelete}
           onToggleMusic={handleToggleMusic}
         />
       )}
       <div className="space-between"></div>
+      <audio ref={audioRef} src="/assets/sounds/mouse-click-sound.mp3" preload="auto" />
       <img
         src={mission}
         alt="mission"
         className="button-image"
-        onClick={() => navigate("/rule")}
+        onClick={() => {
+          playClickSound(); // 클릭 소리 재생
+          setTimeout(() => navigate("/rule"), 100);
+        }}
       />
       <img
         src={record}
         alt="record"
         className="button-image"
-        onClick={() => navigate("/record")}
+        onClick={() => {
+          playClickSound(); // 클릭 소리 재생
+          setTimeout(() => navigate("/record"), 100);
+        }}
       />
     </div>
   );
