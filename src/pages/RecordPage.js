@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RecordPage.css"; // CSS 파일을 따로 관리
 
 const RecordPage = () => {
+
+  const audioRef = useRef(null); // 클릭 소리를 제어하기 위한 ref
+  
+  const playClickSound = () => {
+    if (audioRef.current && document.body.contains(audioRef.current)) {
+      console.log("Playing click sound...");
+      audioRef.current.currentTime = 0; // 처음부터 재생
+      audioRef.current
+        .play()
+        .then(() => console.log("Click sound played successfully."))
+        .catch((error) => {
+          console.error("Error playing click sound:", error);
+        });
+    } else {
+      console.error("Audio element is not available or removed from the document.");
+    }
+  };
+
+  
   const navigate = useNavigate();
 
   /*
@@ -28,8 +47,12 @@ const RecordPage = () => {
 
   return (
     <div className="record-container">
+      <audio ref={audioRef} src="/assets/sounds/mouse-click-sound.mp3" preload="auto" />
       <div className="header">
-        <span className="back-button" onClick={() => navigate(-1)}>
+        <span className="back-button" onClick={() => {
+          playClickSound(); // 클릭 소리 재생
+          setTimeout(() => navigate(-1), 100);
+          }}>
           &larr;
         </span>
         <span className="header-title">현상 기록</span>
@@ -40,7 +63,10 @@ const RecordPage = () => {
           <li
             key={index}
             className="record-item"
-            onClick={() => navigate(record.path)}
+            onClick={() => {
+              playClickSound(); // 클릭 소리 재생
+              setTimeout(() => navigate(record.path), 100);
+              }}
           >
             <span className="record-text">{record.name}</span>
           </li>

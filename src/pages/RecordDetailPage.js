@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./RecordDetailPage.css";
 import axios from "axios";
@@ -26,6 +26,25 @@ const kakao_id = await fetchKakaoId(accessToken);
 console.log("kakao idi id: ", kakao_id);
 
 const RecordDetailPage = () => {
+
+  const audioRef = useRef(null); // 클릭 소리를 제어하기 위한 ref
+    
+  const playClickSound = () => {
+    if (audioRef.current && document.body.contains(audioRef.current)) {
+      console.log("Playing click sound...");
+      audioRef.current.currentTime = 0; // 처음부터 재생
+      audioRef.current
+        .play()
+        .then(() => console.log("Click sound played successfully."))
+        .catch((error) => {
+          console.error("Error playing click sound:", error);
+        });
+    } else {
+      console.error("Audio element is not available or removed from the document.");
+    }
+  };
+
+  
   const [dataList, setDataList] = useState([]); // data 리스트를 저장할 상태
 
   useEffect(() => {
@@ -140,7 +159,10 @@ const RecordDetailPage = () => {
   return (
     <div className="record-detail-container">
       <div className="header">
-        <span className="back-button" onClick={() => navigate(-1)}>
+        <span className="back-button" onClick={() => {
+            playClickSound();
+            setTimeout(() => navigate(-1), 100);
+          }}>
           &larr;
         </span>
         <span className="header-title">{record.title}</span>
