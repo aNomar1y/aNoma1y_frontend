@@ -18,7 +18,14 @@ const BgmController = () => {
         location.pathname === "/" ||
         location.pathname === "/home" ||
         location.pathname === "/rule" ||
-        location.pathname === "/rulenext"
+        location.pathname === "/rulenext" ||
+        location.pathname === "/record" ||
+        location.pathname === "/cctv_room" ||
+        location.pathname === "/gym" ||
+        location.pathname === "/outside" ||
+        location.pathname === "/room201" ||
+        location.pathname === "/room117"||
+        location.pathname === "/stairs"
       ) {
         return loginAndMainBgm;
       } else {

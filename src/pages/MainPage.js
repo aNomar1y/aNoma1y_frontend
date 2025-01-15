@@ -95,6 +95,7 @@ const MainPage = ({ onPlayBgm }) => {
 
   const handleLogout = async () => {
     try {
+      playClickSound(); // 클릭 소리 재생
       const accessToken = localStorage.getItem("access_token");
       const kakaoId = await fetchKakaoId(accessToken);
       console.log("kakao_id: ", kakaoId);
@@ -112,6 +113,7 @@ const MainPage = ({ onPlayBgm }) => {
 
   const handleDelete = async () => {
     try {
+      playClickSound(); // 클릭 소리 재생
       const accessToken = localStorage.getItem("access_token");
       const kakaoId = await fetchKakaoId(accessToken);
       await axios.delete(
