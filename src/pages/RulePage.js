@@ -5,6 +5,24 @@ import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 Re
 import { AiFillHome } from "react-icons/ai"; // 홈 아이콘
 
 function RulePage() {
+
+  const audioRef = useRef(null); // 클릭 소리를 제어하기 위한 ref
+        
+  const playClickSound = () => {
+    if (audioRef.current && document.body.contains(audioRef.current)) {
+      console.log("Playing click sound...");
+      audioRef.current.currentTime = 0; // 처음부터 재생
+      audioRef.current
+        .play()
+        .then(() => console.log("Click sound played successfully."))
+        .catch((error) => {
+          console.error("Error playing click sound:", error);
+        });
+    } else {
+      console.error("Audio element is not available or removed from the document.");
+    }
+  };
+
   const navigate = useNavigate();
   const typingAudioRef = useRef(null);
   const [isTyping, setIsTyping] = useState(false);
@@ -33,6 +51,10 @@ function RulePage() {
     }
   }, [isTyping]);
 
+
+
+
+
   return (
     <div className="rule-container">
       {/* 타이핑 사운드 */}
@@ -41,7 +63,10 @@ function RulePage() {
         src="/assets/sounds/keyboard-typing.mp3"
         preload="auto"
       />
-      <div className="home-icon" onClick={handleHome}>
+      <div className="home-icon" onClick={() => {
+        playClickSound();
+        setTimeout(() => handleHome(), 250);
+        }}>
         <AiFillHome />
       </div>
       <div className="rule-content">
@@ -58,7 +83,10 @@ function RulePage() {
           onTypingEnd={() => setIsTyping(false)} // 타이핑 종료 이벤트
         />
       </div>
-      <button className="rule-next-button" onClick={handleNext}>
+      <button className="rule-next-button" onClick={() => {
+        playClickSound();
+        setTimeout(() => handleNext(), 250);
+        }}>
         &rarr;
       </button>
     </div>

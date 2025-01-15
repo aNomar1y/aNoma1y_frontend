@@ -51,7 +51,7 @@ const RecordPage = () => {
       <div className="header">
         <span className="back-button" onClick={() => {
           playClickSound(); // 클릭 소리 재생
-          setTimeout(() => navigate(-1), 100);
+          setTimeout(() => navigate(-1), 250);
           }}>
           &larr;
         </span>
@@ -65,7 +65,7 @@ const RecordPage = () => {
             className="record-item"
             onClick={() => {
               playClickSound(); // 클릭 소리 재생
-              setTimeout(() => navigate(record.path), 100);
+              setTimeout(() => navigate(record.path), 250);
               }}
           >
             <span className="record-text">{record.name}</span>

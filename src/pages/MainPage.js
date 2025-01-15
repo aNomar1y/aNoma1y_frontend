@@ -171,7 +171,7 @@ const MainPage = ({ onPlayBgm }) => {
         className="button-image"
         onClick={() => {
           playClickSound(); // 클릭 소리 재생
-          setTimeout(() => navigate("/rule"), 100);
+          setTimeout(() => navigate("/rule"), 250);
         }}
       />
       <img
@@ -180,7 +180,7 @@ const MainPage = ({ onPlayBgm }) => {
         className="button-image"
         onClick={() => {
           playClickSound(); // 클릭 소리 재생
-          setTimeout(() => navigate("/record"), 100);
+          setTimeout(() => navigate("/record"), 250);
         }}
       />
     </div>

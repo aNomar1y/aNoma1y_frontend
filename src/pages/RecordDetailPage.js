@@ -161,7 +161,7 @@ const RecordDetailPage = () => {
       <div className="header">
         <span className="back-button" onClick={() => {
             playClickSound();
-            setTimeout(() => navigate(-1), 100);
+            setTimeout(() => navigate(-1), 250);
           }}>
           &larr;
         </span>
