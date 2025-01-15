@@ -49,7 +49,6 @@ const MainPage = ({ onPlayBgm }) => {
   const navigate = useNavigate();
   const audioRef = useRef(null); // 클릭 소리를 제어하기 위한 ref
   const { setCurrentBgm, setIsPlaying } = useBgm(); // 전역 BGM 상태 관리
-
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const playClickSound = () => {
@@ -63,7 +62,9 @@ const MainPage = ({ onPlayBgm }) => {
           console.error("Error playing click sound:", error);
         });
     } else {
-      console.error("Audio element is not available or removed from the document.");
+      console.error(
+        "Audio element is not available or removed from the document."
+      );
     }
   };
 
@@ -102,12 +103,10 @@ const MainPage = ({ onPlayBgm }) => {
       await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/kakao/logout`, {
         kakao_id: kakaoId,
       });
-      alert("로그아웃 성공");
       localStorage.removeItem("access_token");
       navigate("/");
     } catch (error) {
       console.error("로그아웃 실패:", error);
-      alert("로그아웃 실패");
     }
   };
 
@@ -122,12 +121,10 @@ const MainPage = ({ onPlayBgm }) => {
           data: { kakao_id: kakaoId, accessToken: accessToken },
         }
       );
-      alert("회원탈퇴 성공");
       localStorage.removeItem("access_token");
       navigate("/");
     } catch (error) {
       console.error("회원탈퇴 실패:", error);
-      alert("회원탈퇴 실패");
     }
   };
 
@@ -166,7 +163,11 @@ const MainPage = ({ onPlayBgm }) => {
         />
       )}
       <div className="space-between"></div>
-      <audio ref={audioRef} src="/assets/sounds/mouse-click-sound.mp3" preload="auto" />
+      <audio
+        ref={audioRef}
+        src="/assets/sounds/mouse-click-sound.mp3"
+        preload="auto"
+      />
       <img
         src={mission}
         alt="mission"
