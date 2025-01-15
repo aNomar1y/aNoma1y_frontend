@@ -22,7 +22,7 @@ function RoutesIndex({ onPlayBgm }) {
   return (
     <div>
       {/* 네비게이션 바 */}
-      {
+      {/* {
         <nav>
           <Link to="/">login</Link> |<Link to="/home">Home</Link> |
           <Link to="/record">record</Link> |<Link to="/settings">settings</Link>{" "}
@@ -30,7 +30,8 @@ function RoutesIndex({ onPlayBgm }) {
           <Link to="/deadtext">deadtext</Link> |
           <Link to="/firedtext">firedtext</Link> |<Link to="/win">win</Link>
         </nav>
-      }
+      } */}
+      
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<MainPage onPlayBgm={onPlayBgm} />} />
